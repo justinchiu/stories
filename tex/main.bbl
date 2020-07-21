@@ -1,4 +1,4 @@
-\begin{thebibliography}{3}
+\begin{thebibliography}{4}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -28,5 +28,11 @@ Lili Yao, Nanyun Peng, Ralph~M. Weischedel, Kevin Knight, Dongyan Zhao, and Rui
 \newblock Plan-and-write: Towards better automatic storytelling.
 \newblock \emph{CoRR}, abs/1811.05701, 2018.
 \newblock URL \url{http://arxiv.org/abs/1811.05701}.
+
+\bibitem[{Zhou} and {De la Torre}(2016)]{zhou2016gctw}
+F.~{Zhou} and F.~{De la Torre}.
+\newblock Generalized canonical time warping.
+\newblock \emph{IEEE Transactions on Pattern Analysis and Machine
+  Intelligence}, 38\penalty0 (2):\penalty0 279--294, 2016.
 
 \end{thebibliography}

@@ -21,7 +21,25 @@ However, prior investigations into narrative structure used hand-crafted represe
 such as entity coreference or keywords.
 We hope to alleviate the need for hand-crafted structure via structured generative models.
 
-\section{Storyline Discovery with SBERT}
+\section{Storyline Induction}
+As an initial step, we turn to sequence alignment algorithms to induce storylines.
+If a parameterized distance measure (with associated representations)
+is correlated with human judgements for stories,
+then it may be possible to engineer an unsupervised objective that allows
+training of the parameterized distance to further improve performance.
+We may then use the resulting representations to induce interpretable storylines
+through a discretization procedure.
+This approach to analysis allows us to initially avoid expensive
+likelihood-based methods that reconstruct full stories.
+
+(What if there's too much information in SBERT?
+What information is relevant to a storyline?
+What is a storyline?
+Current approach: random search to identify whether certain methods
+produce storylines)
+
+\section{Pairwise Alignment with SBERT and DTW}
+\label{pairwise}
 We first investigate whether we can recover structure that resembles a storyline
 using pretrained models.
 In particular, we use SBERT \citep{reimers2019sbert}
@@ -32,27 +50,44 @@ We then compute an alignment between the sentences of two stories using DTW.
 
 We evaluate the efficacy of SBERT and DTW without fine-tuning by determining whether
 $DTW(Y_i, Y_j)$ correlates with an intuitive distance of stories.
+For a given story we obtain the top $K$ closest stories under DTW
+and compare the ranking with human annotation.
 
-Global
+We additionally evaluate the alignments (TBD)
+
+Analysis forthcoming.
 
 \section{Multisequence Alignment}
+\label{msa}
 Although we found that the pairwise comparison using DTW correlated with intuitive distance,
-the alignments themselves had issues.
-We hope to extract robust storylines, common to multiple stories.
+we aim to further extract robust storylines that are common to multiple stories.
 To accomplish this, we turn to multisequence alignment (MSA) which
-considers multiple stories and produces a global alignment involving
-all stories.
+considers multiple stories and produces a global alignment across
+multiple stories.
 
-Global
+We use the multisequence generalization of DTW \citep{zhou2016gctw}.
+We perform an evaluation of this measure:
+For a given collection of stories, we compare the $K$-subset with the lowest mDTW
+verus a human-annotated subset.
+We obtain a collection of stories by obtaining the $M > K$ closest stories to a given story,
+as measured by DTW.
+
+Analysis forthcoming.
 
 \section{A Generative Model}
-Both pairwise and multisequence alignment methods do not serve as good generative models,
-instead focusing on structure discovery.
+We wish to improve the accuracy of DTW and mDTW without human annotation.
+We optimize a nonparametric time-series modeling objective that extends builds on
+pairwise DTW:
+\begin{equation*}
+\log p(Y_i) = \log \sum_j p(Y_i, Y_j)
+\end{equation*}
 
+Details TBD, but will use DTW distance to approximate integral.
+If preliminary evaluation in Sections~\ref{pairwise} and \ref{msa}
+are positive, then there is hope that the approximation
+grids do not have to be extremely large or updated as training progresses.
 
-\section{Problem Statement}
-We would like to learn a 
-
+We also experiment with the multi-sequence extension.
 
 \newpage
 \bibliographystyle{plainnat}
