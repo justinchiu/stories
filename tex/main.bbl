@@ -1,0 +1,32 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Fan et~al.(2019)Fan, Lewis, and Dauphin]{fan2019structure}
+Angela Fan, Mike Lewis, and Yann~N. Dauphin.
+\newblock Strategies for structuring story generation.
+\newblock \emph{CoRR}, abs/1902.01109, 2019.
+\newblock URL \url{http://arxiv.org/abs/1902.01109}.
+
+\bibitem[Reimers and Gurevych(2019)]{reimers2019sbert}
+Nils Reimers and Iryna Gurevych.
+\newblock Sentence-{BERT}: Sentence embeddings using {S}iamese {BERT}-networks.
+\newblock In \emph{Proceedings of the 2019 Conference on Empirical Methods in
+  Natural Language Processing and the 9th International Joint Conference on
+  Natural Language Processing (EMNLP-IJCNLP)}, pages 3982--3992, Hong Kong,
+  China, November 2019. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/D19-1410}.
+\newblock URL \url{https://www.aclweb.org/anthology/D19-1410}.
+
+\bibitem[Yao et~al.(2018)Yao, Peng, Weischedel, Knight, Zhao, and
+  Yan]{yao2018storyline}
+Lili Yao, Nanyun Peng, Ralph~M. Weischedel, Kevin Knight, Dongyan Zhao, and Rui
+  Yan.
+\newblock Plan-and-write: Towards better automatic storytelling.
+\newblock \emph{CoRR}, abs/1811.05701, 2018.
+\newblock URL \url{http://arxiv.org/abs/1811.05701}.
+
+\end{thebibliography}

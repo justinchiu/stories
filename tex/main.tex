@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+
+\usepackage{mystyle}
+\usepackage[sort,comma,numbers]{natbib}
+
+\title{Storylines}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+% Improve coherency of generative models of text by discovering a notion of storylines.
+Our goal is to improve the coherency of generative story models by modeling storylines.
+As an alternative to black-box models with little explicit structure,
+prior work has noted that including structure in the generative model improves coherence
+in the generations \citep{yao2018storyline,fan2019structure}.
+
+However, prior investigations into narrative structure used hand-crafted representations,
+such as entity coreference or keywords.
+We hope to alleviate the need for hand-crafted structure via structured generative models.
+
+\section{Storyline Discovery with SBERT}
+We first investigate whether we can recover structure that resembles a storyline
+using pretrained models.
+In particular, we use SBERT \citep{reimers2019sbert}
+to map sentences $\bx_i \in \mcX^*$ to vector representations $\by_i \in \R^n$.
+As each story consists of several sentences, we obtain a sequence of representations
+corresponding to each sentence in a given story $\bY = \langle \by_0, \ldots, \by_T \rangle$.
+We then compute an alignment between the sentences of two stories using DTW.
+
+We evaluate the efficacy of SBERT and DTW without fine-tuning by determining whether
+$DTW(Y_i, Y_j)$ correlates with an intuitive distance of stories.
+
+Global
+
+\section{Multisequence Alignment}
+Although we found that the pairwise comparison using DTW correlated with intuitive distance,
+the alignments themselves had issues.
+We hope to extract robust storylines, common to multiple stories.
+To accomplish this, we turn to multisequence alignment (MSA) which
+considers multiple stories and produces a global alignment involving
+all stories.
+
+Global
+
+\section{A Generative Model}
+Both pairwise and multisequence alignment methods do not serve as good generative models,
+instead focusing on structure discovery.
+
+
+\section{Problem Statement}
+We would like to learn a 
+
+
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{bib}
+
+\end{document}
