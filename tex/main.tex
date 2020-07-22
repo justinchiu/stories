@@ -87,6 +87,19 @@ We additionally evaluate the alignments (TBD)
 
 Analysis forthcoming.
 
+If the metric is ill-behaved, is it possible that the alignments are still good?
+Would this imply that training through the metric is a bad idea?
+
+\subsection{Issues with DTW}
+\begin{enumerate}
+\item Length: Fixing an alignment, if you copy one of the elements and insert it
+    next to the original the DTW distance will increase.
+    This biases DTW towards shorter sentences.
+    This could possibly be fixed by jointly aligning and segmenting.
+\item Not smooth: Alignment themselves are not smooth. Soft-DTW is a possible
+    alternative (which has its own problems).
+\end{enumerate}
+
 \section{Multisequence Alignment}
 \label{msa}
 Although we found that the pairwise comparison using DTW correlated with intuitive distance,
@@ -104,7 +117,7 @@ as measured by DTW.
 
 Analysis forthcoming.
 
-\section{A Generative Model}
+\section{A Trainable Model}
 We wish to improve the accuracy of DTW and mDTW without human annotation.
 we optimize a nonparametric time-series modeling objective that extends builds on
 pairwise DTW:

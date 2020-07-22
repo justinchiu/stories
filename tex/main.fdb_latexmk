@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1595436025 "main.aux" "main.bbl" "main" 1595439765
+["bibtex main"] 1595440762 "main.aux" "main.bbl" "main" 1595440762
   "/usr/local/texlive/2018/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1480098435 26816 ffe5423d2019860bad9f54bc402fac15 ""
   "bib.bib" 1595397894 7381 d50cfd5694e2e1d37142813293005740 ""
-  "main.aux" 1595439764 992 b80004aa807884eba157419f457c8a79 ""
+  "main.aux" 1595440762 1073 3e69018673ff5a3686e1b3b267df74bb ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1595439764 "main.tex" "main.pdf" "main" 1595439765
+["pdflatex"] 1595440762 "main.tex" "main.pdf" "main" 1595440762
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -208,11 +208,11 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1526780433 2803735 8410db0ed74a2504fc3708922651cf03 ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1526780453 4219895 d646d013bf99294ff1d974bf7a525ca5 ""
   "/usr/local/texlive/2018/texmf.cnf" 1526780430 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "main.aux" 1595439764 992 b80004aa807884eba157419f457c8a79 ""
-  "main.bbl" 1595436026 1710 a59fc491b4162203a25698b33c10ad68 "bibtex main"
-  "main.tex" 1595439763 5218 388de503c6dca82181e5999f3b78bd28 ""
+  "main.aux" 1595440762 1073 3e69018673ff5a3686e1b3b267df74bb ""
+  "main.bbl" 1595440762 1710 a59fc491b4162203a25698b33c10ad68 "bibtex main"
+  "main.tex" 1595440760 5806 0d2e4f047d7e24a895ce7ac7123e0534 ""
   "mystyle.sty" 1595312957 2842 ca0cdd090996135030989580ca3e88b5 ""
   (generated)
   "main.pdf"
-  "main.log"
   "main.aux"
+  "main.log"
