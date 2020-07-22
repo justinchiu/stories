@@ -22,21 +22,50 @@ such as entity coreference or keywords.
 We hope to alleviate the need for hand-crafted structure via structured generative models.
 
 \section{Storyline Induction}
-As an initial step, we turn to sequence alignment algorithms to induce storylines.
-If a parameterized distance measure (with associated representations)
+As an initial exploratory step,
+we turn to sequence alignment algorithms to induce segmentations of stories.
+
+Sequence alignment algorithms are used in biology to identify
+similar subsequences of proteins in an effort to determine whether a set of
+proteins share common ancestry.
+The algorithms start with a sequence of atomic representations,
+such as amino acids, then build up alignments using these atomic representations.
+Context is taken into account not in the representations,
+but through the dynamic program.
+We posit that these algorithms may also produce motifs that
+resemble storylines in short stories.
+We perform alignment with each independent sentence representation as an atom.
+
+
+We will answer the following questions with our exploratory analysis:
+\begin{enumerate}
+\item At what level should we analyze narrative structure?
+    Do storylines have a set or random length?
+\item Is there a general structure, such as exposition, complication, falling action, and resolution?
+    What are the narrative elements present in short stories?
+\item How do we handle gaps that appear in this structure?
+\item Can we leverage prompts in structure induction?
+\item For assigning a given sentence to a narrative element,
+    is the context (surrounding sentences) or sentence itself (ignoring context)
+    more important?
+\end{enumerate}
+
+%(What if there's too much information in SBERT?
+%What information is relevant to a storyline?
+%What is a storyline?
+%Current approach: random search to identify whether certain methods
+%produce storylines)
+\begin{comment}
+Additionally,
+if a parameterized distance measure (with associated representations)
 is correlated with human judgements for stories,
 then it may be possible to engineer an unsupervised objective that allows
 training of the parameterized distance to further improve performance.
-We may then use the resulting representations to induce interpretable storylines
-through a discretization procedure.
 This approach to analysis allows us to initially avoid expensive
 likelihood-based methods that reconstruct full stories.
+\end{comment}
 
-(What if there's too much information in SBERT?
-What information is relevant to a storyline?
-What is a storyline?
-Current approach: random search to identify whether certain methods
-produce storylines)
+\subsection{Scale}
 
 \section{Pairwise Alignment with SBERT and DTW}
 \label{pairwise}
@@ -51,7 +80,8 @@ We then compute an alignment between the sentences of two stories using DTW.
 We evaluate the efficacy of SBERT and DTW without fine-tuning by determining whether
 $DTW(Y_i, Y_j)$ correlates with an intuitive distance of stories.
 For a given story we obtain the top $K$ closest stories under DTW
-and compare the ranking with human annotation.
+in addition to $K$ additional random stories,
+and compare the ranking under DTW with human annotation.
 
 We additionally evaluate the alignments (TBD)
 
@@ -76,14 +106,14 @@ Analysis forthcoming.
 
 \section{A Generative Model}
 We wish to improve the accuracy of DTW and mDTW without human annotation.
-We optimize a nonparametric time-series modeling objective that extends builds on
+we optimize a nonparametric time-series modeling objective that extends builds on
 pairwise DTW:
 \begin{equation*}
 \log p(Y_i) = \log \sum_j p(Y_i, Y_j)
 \end{equation*}
 
-Details TBD, but will use DTW distance to approximate integral.
-If preliminary evaluation in Sections~\ref{pairwise} and \ref{msa}
+Details TBD, but will use initial SBERT+DTW distance to approximate integral.
+if preliminary evaluation in Sections~\ref{pairwise} and \ref{msa}
 are positive, then there is hope that the approximation
 grids do not have to be extremely large or updated as training progresses.
 

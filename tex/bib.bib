@@ -1,4 +1,22 @@
 
+
+@InProceedings{cuturi2017sdtw,
+  title = 	 {Soft-{DTW}: a Differentiable Loss Function for Time-Series},
+  author = 	 {Marco Cuturi and Mathieu Blondel},
+  booktitle = 	 {Proceedings of the 34th International Conference on Machine Learning},
+  pages = 	 {894--903},
+  year = 	 {2017},
+  editor = 	 {Doina Precup and Yee Whye Teh},
+  volume = 	 {70},
+  series = 	 {Proceedings of Machine Learning Research},
+  address = 	 {International Convention Centre, Sydney, Australia},
+  month = 	 {06--11 Aug},
+  publisher = 	 {PMLR},
+  pdf = 	 {http://proceedings.mlr.press/v70/cuturi17a/cuturi17a.pdf},
+  url = 	 {http://proceedings.mlr.press/v70/cuturi17a.html},
+  abstract = 	 {We propose in this paper a differentiable learning loss between time series, building upon the celebrated dynamic time warping (DTW) discrepancy. Unlike the Euclidean distance, DTW can compare time series of variable size and is robust to shifts or dilatations across the time dimension. To compute DTW, one typically solves a minimal-cost alignment problem between two time series using dynamic programming. Our work takes advantage of a smoothed formulation of DTW, called soft-DTW, that computes the soft-minimum of all alignment costs. We show in this paper that soft-DTW is a \emph{differentiable} loss function, and that both its value and gradient can be computed with quadratic time/space complexity (DTW has quadratic time but linear space complexity). We show that this regularization is particularly well suited to average and cluster time series under the DTW geometry, a task for which our proposal significantly outperforms existing baselines (Petitjean et al., 2011). Next, we propose to tune the parameters of a machine that outputs time series by minimizing its fit with ground-truth labels in a soft-DTW sense. Source code is available at https://github.com/mblondel/soft-dtw}
+}
+
 @ARTICLE{zhou2016gctw,
 
   author={F. {Zhou} and F. {De la Torre}},

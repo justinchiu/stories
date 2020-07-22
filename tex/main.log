@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.5.19)  21 JUL 2020 18:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.5.19)  22 JUL 2020 13:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -840,8 +840,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 LaTeX Warning: No \author given.
 
-
-Overfull \hbox (5.91858pt too wide) in paragraph at lines 51--55
+Excluding 'comment' comment.
+Overfull \hbox (5.91858pt too wide) in paragraph at lines 80--85
 []\OT1/cmr/m/n/10 We eval-u-ate the ef-fi-cacy of SBERT and DTW with-out fine-t
 uning by de-ter-min-ing whether $\OML/cmm/m/it/10 DTW\OT1/cmr/m/n/10 (\OML/cmm/
 m/it/10 Y[]; Y[]\OT1/cmr/m/n/10 )$
@@ -852,10 +852,10 @@ m/it/10 Y[]; Y[]\OT1/cmr/m/n/10 )$
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2] (./main.bbl) [3] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 17801 strings out of 492649
- 381510 string characters out of 6129607
- 457719 words of memory out of 5000000
- 21255 multiletter control sequences out of 15000+600000
+ 17802 strings out of 492649
+ 381520 string characters out of 6129607
+ 458719 words of memory out of 5000000
+ 21256 multiletter control sequences out of 15000+600000
  16928 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,6n,84p,460b,198s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -874,7 +874,7 @@ nts/cm/cmsy7.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmti10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmtt10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
 symbols/msbm10.pfb>
-Output written on main.pdf (3 pages, 148804 bytes).
+Output written on main.pdf (3 pages, 149697 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  61 compressed objects within 1 object stream
