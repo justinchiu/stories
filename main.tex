@@ -31,46 +31,84 @@ large pretrained sentence representations and alignment methods from biological 
 We posit that 
 \end{comment}
 
-\section{Background: Pairwise Alignment}
+\section{Background: Pairwise Sequence Alignment}
+The goal of pairwise sequence alignment is to find a minimum cost alignment
+between sequences of sentences $\bx_1$ and $\bx_2\in\Sigma^*$, where
+sentences are represented by a vector in $\R^n$.
+We additionally add a gap symbol `-' to $\Sigma$, such that 
+$\Sigma = \R^n \cup \set{-}$.
+We refer to elements of $\Sigma$ as tokens.
 
-\paragraph{Insertion and deletion versus compression and expansion}
+In order to align two stories, pairwise alignment extends edit distance
+with a distance measure $d: \Sigma\times\Sigma\to\R$ that operates on pairs of tokens,
+one from each story.
+The best alignment is given by the following:
+\begin{equation}
+\label{eqn:align}
+\argmin_\pi \sum_{(i, j) \in \pi} d(x_{1,i},x_{2,j})
+\end{equation}
+where $\pi$ is a joint path through $\bx_1$ and $\bx_2$.
+Valid paths are obtained by only inserting gaps into the original story
+while preserving order.
+Equation~\ref{eqn:align} can be solved exactly via dynamic programming.
+Let $\bx^\pi_1,\bx^\pi_2$ be the gap-augmented stories obtained by following path $\pi$,
+which are both of length $L$.
+We refer to 
+%\begin{equation}
+$M = \begin{pmatrix}\bx^\pi_1 \\ \bx^\pi_2 \end{pmatrix}$
+%\end{equation}
+as the alignment.
 
-\paragraph{Sentence Representations}
-
+When choosing a distance measure $d$, a key component is how the measure deals with gaps.
+There are two approaches: 1) gaps correspond to insertion or deletions and 2) gaps
+correspond to expansions or compressions.
+Classical algorithms from biology, such as Needleman-Wunsch, model insertions and deletions,
+as random mutations result in completely new elements that do not have a good interpretation
+as an expansion or compression.
+Time-series algorithms, such as Dynamic Time Warping (DTW), model expansions and compressions,
+since warping may occur due to sampling at different frequencies or other reasons.
+It is possible to model both of these in the distance measure.
+For simplicity, we focus only on modeling insertion and deletion as this is a good
+fit for story alignment:
+Adding a sentence to a story, even if it builds on prior sentences,
+adds new information.
+% do I need to explain why?
 
 \section{Problem Setup: Multiple Sequence Alignment}
-The goal of multiple sequence alignment (MSA) is to find a joint alignment of $K$ sequences
-$\mcX = \set{\bx_i}_{i=1}^K$, where each element is a sequence of tokens:
-$\bx_i = \langle x_{i1}, x_{i2}, \ldots \rangle, x_{ij} \in \Sigma$.
-Tokens from the alphabet can be a vector or the gap symbol:
-$\Sigma = \R^n \cup \set{-}$ .
+In order to extract storylines, we would like to find patterns that are robust across
+multiple stories. 
+Unfortunately, methods for solving pairwise alignment are not directly applicable, since they
+only consider pairs of stories.
+Instead, we turn to the problem of multiple sequence alignment,
+which generalizes alignment from pairs of stories to sets of stories.
 
-A multiple alignment is a matrix $M \in \Sigma^{K \times L}$, given by:
+Given a set of $K$ sequences,
+a multiple alignment is a matrix $M \in \Sigma^{K \times L}$, given by:
 \begin{equation}
 M = \begin{pmatrix}
-    \tilde{\bx}_1 \\
+    \bx_1^\pi \\
     \vdots \\
-    \tilde{\bx}_K
+    \bx_K^\pi
 \end{pmatrix},
 \end{equation}
-where each $\tilde{\bx}_i$ is obtained by inserting gaps into the corresponding $\bx_i$
-to ensure that each $\tilde{\bx}_i$ is of length $L$.
+where each $\bx_i^\pi$ is obtained by inserting gaps into the corresponding $\bx_i$
+to ensure that each $\bx_i^\pi$ is of length $L$, as in pairwise alignment.
 
-There are two common measures of quality for an alignment:
+There are two common measures of quality for a multiple alignment:
 1) the sum of pairs (SP) score and 2) the consensus error or Steiner distance.
 In order to compute the SP score, we require a scoring function $d: \Sigma\times\Sigma\to\R$
 that operates on pairs of tokens.
 The SP score is given by
 \begin{equation}
-\mathrm{SP}(M) = \sum_{t=1}^L \sum_{i=1}^K \sum_{j=i+1}^K d(M_{it}, M_{jt}),
+\mathrm{SP}(M) = \sum_{l=1}^L \sum_{i=1}^K \sum_{j=i+1}^K d(M_{il}, M_{jl}),
 \end{equation}
 obtained by summing the pairwise distances between elements of $M$ in the same column.
 
 The consensus error given a consensus sequence $\bz\in\Sigma^L$ is defined as follows:
 \begin{equation}
-\mathrm{CE}(M, \bz) = \sum_{t=1}^L \sum_{i=1}^K d(M_{it}, z_{t}),
+\mathrm{CE}(M, \bz) = \sum_{l=1}^L \sum_{i=1}^K d(M_{il}, z_{l}),
 \end{equation}
-the sum of the distances from each element in a column to $z_t$.
+the sum of the distances from each element in a column to $z_l$.
 The mean sequence $\bz\in\Sigma^L$ that minimizes this error is known as the consensus sequence.
 
 Finally, the Steiner distance is closely related to the consensus error,
@@ -84,16 +122,16 @@ The Steiner distance is given by
 \end{equation}
 The optimal consensus error, $\min_\bz\mathrm{CE}(M,\bz)$,
 is equivalent to the optimal Steiner distance, $\min_{\bz}\mathrm{SD}(\mcX, \bz)$
- \citep{gusfield1997}.
+\citep{gusfield1997}.
 Additionally, the optimal Steiner sequence, $\arg\min_{\bz}\mathrm{SD}(\mcX, \bz)$,
 is equivalent to the optimal consensus sequence, $\arg\min_\bz\mathrm{CE}(M,\bz)$,
-up to spaces \citep{gusfield1997}.
+up to spaces.
 
-We focus on optimizing the Steiner distance due to its computational
-benefits, but also perform evaluation using the Sum of Pairs score.
+We utilize algorithms that optimize both the SP score and the Steiner distance,
+and report results on both.
 
 \section{Methods}
-As optimizing all of the objectives in the previous section is NP-hard,
+As optimizing both the SP score and Steiner distance are NP-hard,
 we resort to heuristic optimization methods.
 We use a combination of three approaches: a progressive alignment method
 inspired by a classical algorithm from computation biology,
@@ -104,7 +142,7 @@ and a greedy hill climbing algorithm that operates in the space of Steiner seque
 Inspired by the progressive alignment algorithm
 of \citet{fengdoolittle}, we first take a naive approach to approximating
 a multiple sequence alignment.
-Progressive alignments serve to optimize the SP score.
+Progressive alignments aim to optimize the SP score.
 
 Given a set of sequences $\mcX$ and an ordering $\sigma$,
 we progressively align the next sequence in the ordering to the
@@ -112,14 +150,14 @@ already aligned sequences.
 Once a set of sequences are aligned, their columns of the alignment are frozen;
 elements of new sequences must align to a whole column
 from the existing alignment or a gap.
-This is referred to as the `once a gap, always a gap' property \citep{}.
+This is referred to as the `once a gap, always a gap' property \citep{fengdoolittle}.
 
 In order to align a sequence to an existing alignment, we lift the definition of
 the token distance $d$ to compare an element to a column of an alignment 
 such that $d^+: \Sigma^*\times\Sigma\to\R$, as follows:
 \begin{equation}
 \label{eqn:dplus}
-d^+(x, \by) = \sum_{j=1}^{|\by|} d(y_j, x).
+d^+(\by, x) = \sum_{j=1}^{|\by|} d(y_j, x).
 \end{equation}
 We can then extend pairwise global alignment with $d^+$, allowing us to
 treat the columns of an alignment as if it were a token.
@@ -141,44 +179,69 @@ Progressive Alignment
 \end{algorithm}
 
 \subsection{An Iterative Averaging Algorithm}
-As the progressive algorithm does not minimize the Steiner distance,
-we propose an iterative averaging (IA) algorithm which directly optimizes the Steiner distance.
+Next, we propose an iterative averaging (IA)
+algorithm which directly optimizes the Steiner distance.
 The IA algorithm is inspired by the
-DTW Barycenter Averaging algorithm \citep{petitjean2011dba},
+DTW Barycenter Averaging (DBA) algorithm \citep{petitjean2011dba},
 which iteratively computes pairwise alignments between a mean sequence $\bz$
 and a set of sequences $\mcX$ then uses those alignments to recompute the mean sequence. 
+As the DBA algorithm was designed to model expansion and compression, 
+we adapt it for insertion and deletion.
 
-The IA algorithm proceeds in the largely same fashion;
-however, there is nuance in the second step of recomputing the mean sequence.
+The IA algorithm proceeds in a fashion similar to DBA.
 We recompute the mean sequence by first constructing a multiple alignment from the
 pairwise alignments, then for each column of the multiple alignment
 computing the token that minimizes the distance to each element within that column.
-As we focus on insertion/deletion rather than compression/expansion
-(write about this in background),
+As we model insertions and deletions,
 there is ambiguity when mapping the pairwise alignments to a joint multiple alignment.
-Namely, given a token from $\bx_i$ aligned to a gap,
-there are multiple ways of that token to tokens from other
-sequences $\bx_j$ that are also aligned to gaps.
+Namely, there are multiple ways of aligning tokens from $\mcX$ that are all to gaps.
 We resolve this ambiguity heuristically by inserting gaps in
-the $\tilde{\bx}_i$ obtained by pairwise alignment with $\bz$
-so that all tokens aligned to elements in $\bz$ are in the same column.
-(Need to edit for clarity, and background on pairwise alignment)
+the $\bx_i^\pi$ obtained by pairwise alignment with $\bz$
+so that all tokens aligned to elements in $\bz$ are aligned.
+The algorithm is detailed in Algorithm~\ref{alg:ia}.
 
 \begin{algorithm}[h]
 \begin{algorithmic}
-\State{Given: A set of sequences $\mcX = \set{\bx_i}_i$,
-and extended distance measure $d^+$}
-\State{Initialize mean string $\bz$}
+\State{Given: A set of sequences $\mcX = \set{\bx_i}_i$
+and distance measure $d$}
+\State{Given: Initial mean string $\bz$}
+
+\Function{IterativeAverage}{$\bz, \mcX, d$}
 \ForAll{iterations}
     \ForAll{sequences $\bx_i \in \mcX$}
-        \State{Compute pairwise alignments $M_i = \Call{PairwiseAlign}{\bx_i, \bz, d}$}
+        \State{Compute pairwise alignments $M^i = \Call{PairwiseAlign}{\bx_i, \bz, d}, M^i \in \Sigma^{2\times L_i}$}
     \EndFor
-    \State{Stack the alignments $M = \Call{Stack}{M_1, \ldots, M_K}$}
-    \State{Update $\bz = \Call{Average}{M}$}
+    \State{Compute multiple alignment $M = \Call{Stack}{M^1, \ldots, M^K}$}
+    \State{Update $\bz = \Call{Average}{M, d}$}
 \EndFor
 \Return{$M$}
+\EndFunction
+
+\Function{Stack}{$M^1, \ldots, M^K$}
+\While{Non-gap elements of $\bz$ are not aligned in all $M^i_2$}
+\State{Record column indices of $M^i_2$ that have a non-gap element of $\bz$}
+\State{Insert $(-,-)$ columns to the left of the columns with non-gap elements from $\bz$
+    for each $M^i$}
+\EndWhile
+\Return{$\begin{pmatrix}M^{1}_1\\\hdots\\M^{K}_1\end{pmatrix}$}
+\EndFunction
+
+\Function{Average}{$M, d$}
+\State{Initialize $\bz\in\Sigma^{L}$}
+\ForAll{columns $l$ in $M$}
+\State{Set proposal $z'$ to the average non-gap representation of column $l$}
+\State{Compute cost $c(z') = \sum_i d(M_{il}, z')$ and $c(-) = \sum_i d(M_{il}, -)$}
+\If{$c(z) > c(-)$}
+\State{Set $z_l = -$}
+\Else
+\State{Set $z_l = z'$}
+\EndIf
+\EndFor
+\Return{$\bz$}
+\EndFunction
+
 \end{algorithmic}
-\caption{\label{alg:iterative}
+\caption{\label{alg:ia}
 Iterative Averaging Alignment
 }
 \end{algorithm}
@@ -233,22 +296,23 @@ In our experiments, we use only the story.
 
 We perform MSA on story sets of size 5.
 As it would be intractable to run MSA on all story sets of size 5,
-we use heuristics to select clusters of stories that have low pairwise distance.
-For every story in the \textsc{WritingPrompts} dataset,
-we encode each sentence using SBERT \citep{reimers2019sbert}.
-We then compute bigram bag-of-sentence (BoS) representations of stories by
+we use heuristics to select sets of stories that have low pairwise distance.
+We use the following procedure to obtain the sets $\mcX$:
+\begin{enumerate}
+\item For every story in the \textsc{WritingPrompts} dataset,
+we project each sentence using SBERT \citep{reimers2019sbert} into $\R^n$.
+\item Compute bigram bag-of-sentence (BoS) representations of stories by
 concatenating the SBERT representations of consecutive sentences, and averaging over time.
-Then, taking each of the first 50k stories from the \textsc{WritingPrompts} dataset as centroids,
-we find the 128 nearest neighbours for each of those centroids in bigram BoS space.
-We then find the 4 closest stories to each centroid from its 128 neighbours
+\item Take each of the first 50k stories from the \textsc{WritingPrompts} dataset as centroids,
+and find 128 nearest neighbours for each in bigram BoS space.
+\item Find the 4 closest stories to each centroid from its 128 neighbours
 under the path-length normalized pairwise alignment distance.
-When finding the 4 closest stories, we additionally 
-ensured that each of the 4 stories had a normalized pairwise distance of at least 150
-in order to avoid duplicate stories.
-Finally, we then run MSA on the 50 centroids and their 4 closest neighbours with the lowest sum 
-of normalized pairwise distances from the centroid to the neighbours.
+We avoid selecting duplicates by discarding stories with matching 10-grams.
+\item Select 50 centroids (and their closest stories), ensuring 
+coverage over stories of different styles.
+\end{enumerate}
 
-For the pairwise alignment distance measure $d(x, y)$, with tokens $x,y\in\Sigma$,
+For the token distance measure $d(x, y)$,
 we use
 \begin{equation} 
 d(x,y) = \begin{cases}
@@ -259,8 +323,19 @@ d(x,y) = \begin{cases}
 \end{cases}
 \end{equation}
 where $\delta_x,\delta_y$ are the gap penalties.
+This distance measure
+
+When choosing the distance measure $d$, there are two key points:
+1) whether to model insertions and deletions or compressions and expansions,
+and 2) what token representation to operate on.
+For 1) we focus on insertions and deletions, as they are a better fit for aligning
+short stories about diverse topics. We are not concerned with identifying 
+expansions upon the same story; we would like to find trends across somewhat
+different stories.
+For 2) we use 
+
 In choosing clusters, as well as our experiments with progressive alignment,
-we set $\delta_x=\delta_y \in \set{125, 150}$.
+we set $\delta_x=\delta_z \in \set{125, 150}$.
 For the Steiner distance, we set $\delta_x \in \set{60, 75}$
 and $\delta_y \in \set{180, 225, 300, 375}$.
 We chose these gap penalties empirically based on preliminary analysis of the SBERT
