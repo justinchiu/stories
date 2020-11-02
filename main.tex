@@ -6,6 +6,7 @@
 \usepackage[sort,comma,numbers]{natbib}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
+\usepackage{hyperref}
 
 \usepackage{subcaption}
 
@@ -45,7 +46,7 @@ one from each story.
 The best alignment is given by the following:
 \begin{equation}
 \label{eqn:align}
-\argmin_\pi \sum_{(i, j) \in \pi} d(x_{1,i},x_{2,j})
+\argmin_\pi \sum_{(i, j) \in \pi} d(x_{1i},x_{2j}),
 \end{equation}
 where $\pi$ is a joint path through $\bx_1$ and $\bx_2$.
 Valid paths are obtained by only inserting gaps into the original story
@@ -65,14 +66,14 @@ correspond to expansions or compressions.
 Classical algorithms from biology, such as Needleman-Wunsch, model insertions and deletions,
 as random mutations result in completely new elements that do not have a good interpretation
 as an expansion or compression.
-Time-series algorithms, such as Dynamic Time Warping (DTW), model expansions and compressions,
-since warping may occur due to sampling at different frequencies or other reasons.
-It is possible to model both of these in the distance measure.
-For simplicity, we focus only on modeling insertion and deletion as this is a good
-fit for story alignment:
-Adding a sentence to a story, even if it builds on prior sentences,
-adds new information.
-% do I need to explain why?
+Other algorithms such as Dynamic Time Warping (DTW) model expansions and compressions,
+since warping may occur due to various reasons such as sampling at different frequencies.
+It is possible to model both of these phenomena in the distance measure.
+We assume that adding a sentence to a story, even if it builds on prior sentences,
+adds new information and is semantically different from preceding sentences,
+and therefore only model insertion and deletion.
+
+(Include description of SBERT and justification as to why it can induce storylines)
 
 \section{Problem Setup: Multiple Sequence Alignment}
 In order to extract storylines, we would like to find patterns that are robust across
@@ -96,21 +97,18 @@ to ensure that each $\bx_i^\pi$ is of length $L$, as in pairwise alignment.
 
 There are two common measures of quality for a multiple alignment:
 1) the sum of pairs (SP) score and 2) the consensus error or Steiner distance.
-In order to compute the SP score, we require a scoring function $d: \Sigma\times\Sigma\to\R$
-that operates on pairs of tokens.
+All methods use the distance measure $d: \Sigma\times\Sigma\to\R$ from pairwise alignment.
 The SP score is given by
 \begin{equation}
 \mathrm{SP}(M) = \sum_{l=1}^L \sum_{i=1}^K \sum_{j=i+1}^K d(M_{il}, M_{jl}),
 \end{equation}
 obtained by summing the pairwise distances between elements of $M$ in the same column.
-
 The consensus error given a consensus sequence $\bz\in\Sigma^L$ is defined as follows:
 \begin{equation}
 \mathrm{CE}(M, \bz) = \sum_{l=1}^L \sum_{i=1}^K d(M_{il}, z_{l}),
 \end{equation}
 the sum of the distances from each element in a column to $z_l$.
 The mean sequence $\bz\in\Sigma^L$ that minimizes this error is known as the consensus sequence.
-
 Finally, the Steiner distance is closely related to the consensus error,
 and can be computed without explicitly constructing a multiple alignment.
 Let $D: \Sigma^* \times \Sigma^* \to \R$
@@ -126,9 +124,9 @@ is equivalent to the optimal Steiner distance, $\min_{\bz}\mathrm{SD}(\mcX, \bz)
 Additionally, the optimal Steiner sequence, $\arg\min_{\bz}\mathrm{SD}(\mcX, \bz)$,
 is equivalent to the optimal consensus sequence, $\arg\min_\bz\mathrm{CE}(M,\bz)$,
 up to spaces.
+(Double check this last part carefully, maybe cut out consensus error definition.)
 
-We utilize algorithms that optimize both the SP score and the Steiner distance,
-and report results on both.
+We utilize algorithms that optimize both the SP score and the Steiner distance.
 
 \section{Methods}
 As optimizing both the SP score and Steiner distance are NP-hard,
@@ -160,8 +158,8 @@ such that $d^+: \Sigma^*\times\Sigma\to\R$, as follows:
 d^+(\by, x) = \sum_{j=1}^{|\by|} d(y_j, x).
 \end{equation}
 We can then extend pairwise global alignment with $d^+$, allowing us to
-treat the columns of an alignment as if it were a token.
-With the extended measure $d^+$, the full algorithm is given in Algorithm~\ref{alg:progressive}.
+align the columns of an alignment to a token.
+The full algorithm is given in Algorithm~\ref{alg:progressive}.
 
 \begin{algorithm}[h]
 \begin{algorithmic}
@@ -189,12 +187,13 @@ As the DBA algorithm was designed to model expansion and compression,
 we adapt it for insertion and deletion.
 
 The IA algorithm proceeds in a fashion similar to DBA.
-We recompute the mean sequence by first constructing a multiple alignment from the
+We first construct a multiple alignment from the
 pairwise alignments, then for each column of the multiple alignment
-computing the token that minimizes the distance to each element within that column.
+compute the token that minimizes the distance to each element within that column.
 As we model insertions and deletions,
 there is ambiguity when mapping the pairwise alignments to a joint multiple alignment.
-Namely, there are multiple ways of aligning tokens from $\mcX$ that are all to gaps.
+Namely, there are multiple ways of aligning tokens from $\mcX$ that are all aligned to gaps
+in $\bz$.
 We resolve this ambiguity heuristically by inserting gaps in
 the $\bx_i^\pi$ obtained by pairwise alignment with $\bz$
 so that all tokens aligned to elements in $\bz$ are aligned.
@@ -209,7 +208,7 @@ and distance measure $d$}
 \Function{IterativeAverage}{$\bz, \mcX, d$}
 \ForAll{iterations}
     \ForAll{sequences $\bx_i \in \mcX$}
-        \State{Compute pairwise alignments $M^i = \Call{PairwiseAlign}{\bx_i, \bz, d}, M^i \in \Sigma^{2\times L_i}$}
+        \State{Compute pairwise alignments $M^i = \Call{PairwiseAlign}{\bx_i, \bz, d} \in \Sigma^{2\times L_i}$}
     \EndFor
     \State{Compute multiple alignment $M = \Call{Stack}{M^1, \ldots, M^K}$}
     \State{Update $\bz = \Call{Average}{M, d}$}
@@ -230,7 +229,7 @@ and distance measure $d$}
 \State{Initialize $\bz\in\Sigma^{L}$}
 \ForAll{columns $l$ in $M$}
 \State{Set proposal $z'$ to the average non-gap representation of column $l$}
-\State{Compute cost $c(z') = \sum_i d(M_{il}, z')$ and $c(-) = \sum_i d(M_{il}, -)$}
+\State{Compute costs $c(z') = \sum_i d(M_{il}, z')$ and $c(-) = \sum_i d(M_{il}, -)$}
 \If{$c(z) > c(-)$}
 \State{Set $z_l = -$}
 \Else
@@ -248,40 +247,57 @@ Iterative Averaging Alignment
 
 \subsection{Hill Climbing Algorithm}
 As the previous iterative algorithm used a heuristic in the averaging step
-that was computationally inexpensive but not guaranteed to improve the Steiner distance,
+that was computationally cheap but not guaranteed to improve the Steiner distance,
 we also consider a greedy hill climbing (HC) algorithm that is more expensive but
 guaranteed to improve the objective.
 
-The hill climbing algorithm proceeds as follows: Given an initial mean sequence $\bz^{(0)}$,
+The hill climbing algorithm proceeds as follows: Given an initial mean sequence $\bz$,
 we first compute the pairwise alignments from $\bz$ to each sequence in $\mcX$.
-We obtain the first proposal sequence by averaging the token from each $\bx_i$ aligned
-to each $z_t$.
-Let this proposal be $\bz'$.
-Next, we consider all proposals obtainable from one-step deviations
-from $\bz'$, 
-i.e. by adding or removing a single token.
-To obtain the removal proposals, we simply consider removing each element of $\bz'$.
-For the addition proposals, for each we take the average of the cartesian-product of tokens from each
-$\bx_i$ aligned to a gap
+We obtain an initial proposal sequence by averaging the token from each $\bx_i$ aligned
+to each element of $\bz$, rather than a gap.
+We then compute all one-step deviations from this proposal sequence,
+then find the proposal with the lowest Steiner distance to $\mcX$ for use as 
+the mean sequence in the next iteration.
+One-step deviations are obtained by adding or deleting one element of $\bz$.
+Candidates for addition are obtained by considering the elements of sequences in $\mcX$
+that are aligned to gaps in-between elements of $\bz$.
+The full algorithm is given below in Algorithm~\ref{alg:hillclimbing}.
 
 \begin{algorithm}[h]
 \begin{algorithmic}
 \State{Given: A set of sequences $\mcX = \set{\bx_i}_i$,
-and extended distance measure $d^+$}
+and distance measure $d$}
 \State{Initialize mean string $\bz$}
+\Function{HillClimb}{$\mcX, \bz, d$}
 \ForAll{iterations}
     \ForAll{sequences $\bx_i \in \mcX$}
-        \State{Compute pairwise alignments $M_i = \Call{PairwiseAlign}{\bx_i, \bz, d}$}
+        \State{Compute pairwise alignments $M^i = \Call{PairwiseAlign}{\bx_i, \bz, d}$}
     \EndFor
-    \State{compute proposal $\bz' = \Call{AverageAligned}{M_1,\ldots,M_{|\mcX|}}$}
-    \State{}
-    \ForAll{}
+    \State{Compute proposal $\bz' = \Call{AverageAligned}{M^1,\ldots,M^K}$}
+    \State{Initialize list $Z=[\bz']$}
+    \ForAll{indices $t\in[|\bz|]$}
+        \ForAll{alignments $M^i$}
+            \State{Store tokens in $\bx_i$ aligned to gaps between $z_{t-1}$ and $z_{t}$ in $g_i^t$}
+        \EndFor
+        \ForAll{elements $\by$ of the cartesian product of $g_1^t\times\cdots\times g_K^t$}
+            \State{Set $m$ to the average representation of $\by$}
+            \State{Append addition proposal $[\bz_{1:t},m,\bz_{t:|\bz|}]$ to $Z$}
+        \EndFor
+        \State{Append deletion proposal $[\bz_{1:t},\bz_{t+1:|\bz|}]$ to $Z$}
     \EndFor
-    \ForAll{}
-    \EndFor
-    \State{Update $\bz = \Call{Average}{M}$}
+    \If{no proposals improve the Steiner Distance}
+    \Return{$\bz$}
+    \EndIf
+    \State{Set $\bz$ to the proposal in $Z$ with the lowest Steiner distance}
 \EndFor
-\Return{$M$}
+\Return{$\bz$}
+\EndFunction
+\Function{AverageAligned}{$M^1,\ldots,M^K$}
+\ForAll{non-gap elements $z_t$ in the alignments $M_i$}
+    \State{Set $z_t$ to the average of all aligned tokens from each $M_i$}
+\EndFor
+\Return{$\bz$}
+\EndFunction
 \end{algorithmic}
 \caption{\label{alg:hillclimbing}
 Hill Climbing Alignment
@@ -296,20 +312,19 @@ In our experiments, we use only the story.
 
 We perform MSA on story sets of size 5.
 As it would be intractable to run MSA on all story sets of size 5,
-we use heuristics to select sets of stories that have low pairwise distance.
-We use the following procedure to obtain the sets $\mcX$:
+we instead use the following procedure to obtain the sets $\mcX$:
 \begin{enumerate}
 \item For every story in the \textsc{WritingPrompts} dataset,
 we project each sentence using SBERT \citep{reimers2019sbert} into $\R^n$.
-\item Compute bigram bag-of-sentence (BoS) representations of stories by
-concatenating the SBERT representations of consecutive sentences, and averaging over time.
-\item Take each of the first 50k stories from the \textsc{WritingPrompts} dataset as centroids,
-and find 128 nearest neighbours for each in bigram BoS space.
-\item Find the 4 closest stories to each centroid from its 128 neighbours
+\item We compute the bigram bag-of-sentence (BoS) representations of stories by
+concatenating the SBERT representations of consecutive sentences and averaging over time.
+\item We use each of the first 50k stories from the \textsc{WritingPrompts} dataset as centroids
+and find the 128 nearest neighbours for each centroid in bigram BoS space.
+\item For each centroid, we then find the 4 closest stories from its 128 neighbours
 under the path-length normalized pairwise alignment distance.
 We avoid selecting duplicates by discarding stories with matching 10-grams.
-\item Select 50 centroids (and their closest stories), ensuring 
-coverage over stories of different styles.
+\item Select 50 centroids (and their closest stories) based on the sum
+difference from the centroid to the closest stories.
 \end{enumerate}
 
 For the token distance measure $d(x, y)$,
@@ -322,17 +337,7 @@ d(x,y) = \begin{cases}
 \|x-y\|_2^2 & \mathrm{otherwise,}
 \end{cases}
 \end{equation}
-where $\delta_x,\delta_y$ are the gap penalties.
-This distance measure
-
-When choosing the distance measure $d$, there are two key points:
-1) whether to model insertions and deletions or compressions and expansions,
-and 2) what token representation to operate on.
-For 1) we focus on insertions and deletions, as they are a better fit for aligning
-short stories about diverse topics. We are not concerned with identifying 
-expansions upon the same story; we would like to find trends across somewhat
-different stories.
-For 2) we use 
+where $\delta_x,\delta_y$ are gap penalties.
 
 In choosing clusters, as well as our experiments with progressive alignment,
 we set $\delta_x=\delta_z \in \set{125, 150}$.
@@ -348,8 +353,8 @@ For computing the MSA, we use the progressive alignment, iterative averaging,
 and hill climbing algorithm.
 For the IA algorithm, we initialize the mean sequence with the longest sequence $\bx_i \in \mcX$.
 For the hill climbing algorithm, we initialize the mean sequence with
-either the mean sequence obtained from the progressive alignment or the IA algorithm,
-yielding two configurations.
+two different configurations:
+either the mean sequence obtained from the progressive alignment or the IA algorithm.
 
 \section{Results}
 We find that the MSA algorithms perform better on the objective they optimize,
@@ -361,7 +366,7 @@ Initializing the hill climbing approach with the mean sequence obtained from
 the progressive alignment results in an alignment that has a lower Steiner distance
 than progressive, but the SP score increases.
 
-\begin{table}
+\begin{table}[h]
 \centering
 \begin{tabular}[h]{|l|c|c|c|c|}
 \hline
@@ -385,35 +390,306 @@ Steiner distance than if it had been initialized with IA.
 }
 \end{table}
 
-The alignments obtained from the Progressive alignments are longer and contain more gaps
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{img/prog125vhcia}
+\caption{
+\label{fig:colcounts}
+The progressive algorithm outputs alignments that are much sparser
+and longer than the best-performing method that optimizes the Steiner distance,
+hill climbing (IA).
+This is shown by a large number of columns from progressive alignments
+containing only a single non-gap element,
+and few columns containing more than 3 non-gap elements.
+These column density counts were obtained across all multiple alignments from the
+initial 50 clusters.
+}
+\end{figure}
+
+We compare the method with the best SP score, the progressive alignment,
+with the best method in terms of Steiner distance, the hill climbing algorithm
+initialized with the output of iterative averaging (IA).
+The alignments obtained from the progressive alignments are longer and contain more gaps
 than the hill climbing (IA) alignments.
 This is shown in Figure~\ref{fig:colcounts},
 where the total number of columns is much larger for progressive than HC(IA),
 and the column densities are lower for progressive as well.
-We hypothesize that this is due to the algorithms chosen for optimizing the Steiner distance.
-In the IA algorithm, the gap penalty controls how the 
-mean sequence accounts for the number of gaps within a column.
-JK, need to think more about this still \citep{lei2004triangle}.
+We find that the hill climbing algorithm aligns sentences
+that are not semantically similar,
+therefore we focus on analyzing the progressive alignments for evidence of
+storylines.
 
-\begin{figure}
-\begin{subfigure}{0.5\textwidth}
+\begin{figure}[h]
 \centering
-\includegraphics[width=3in]{img/prog125v150.png}
-\caption{}
-\end{subfigure}
-\begin{subfigure}{0.5\textwidth}
-\centering
-\includegraphics[width=3in]{img/prog125vhcia}
-\subcaption{}
-\end{subfigure}
+\includegraphics[width=3in]{img/prog125vhcia.png}
 \caption{
 \label{fig:colcounts}
-Merge into one graph.
+The progressive algorithm outputs alignments that are much sparser
+and longer than the best-performing method that optimizes the Steiner distance,
+hill climbing (IA).
+This is shown by a large number of columns from progressive alignments
+containing only a single non-gap element,
+and few columns containing more than 3 non-gap elements.
+These column density counts were obtained across all multiple alignments from the
+initial 50 clusters.
+}
+\end{figure}
+
+\begin{comment}
+\subsection{Analysis?}
+Question: Is there a bias in the alignment scores due to SBERT?
+Observation: Many of the aligned sentences are short in length when sorting by star distance.
+Subquestion: Are longer sentences farther from other sentences under SBERT?
+\end{comment}
+
+We observe that stories with very short sentences result in better qualitatively better alignments.
+This is corroborated by Figure~\ref{fig:len-v-dist}, where the average distance
+from short sentences to their nearest neighbours is smaller than that of longer sentences.
+The shorter sentences may be better semantic matches,
+or there may be out-of-domain issues with the sentence representations from SBERT.
+The datasets SBERT was trained on were obtained from image captioning and other sources
+that may not transfer well to the particular setting of the subreddit where
+\textsc{WritingPrompts} was collected from;
+additionally, the average sentence lengths for the datasets SBERT were trained on were 
+14.1 and 22.3 \citep{bowman2015snli,williams2017mnli}
+whereas the average length of sentences in the \textsc{WritingPrompts}
+dataset is 28.4 \citep{fan2018writingprompts}.
+We posit that SBERT has less exposure to longer, more complex (or ill-formed) sentences
+such as those found in \textsc{WritingPrompts}.
+The result of this bias is that shorter sentences are more likely to be matched,
+and stories that contain many short sentences (especially those with many trivial nearest neighbours)
+may be favored.
+\begin{figure}[h]
+\centering
+\includegraphics[width=3in]{img/senlen-v-nn-dist.png}
+\caption{
+\label{fig:len-v-dist}
+Longer sentences tend to be farther from their nearest neighbours.
+$2^{16}$ random sentences were sampled from \textsc{WritingPrompts},
+and the plot shows their length versus the average distance to their 10 nearest neighbours.
+Distances were averaged across all sentences of the same length.
+}
+\end{figure}
+\begin{comment}
+Subquestion: How many false negatives are we seeing because of low gap penalty?
+Subquestion: Are there other measures of diversity? (maybe using kmeans clusters)
+Aside: The alignments for literary criticism are quite good. This is because the sentences are statements.
+    Likely closer to domain SBERT was trained on.
+
+Question: What patterns surface through the alignments?
+Subquestion: Are the sentences syntactically similar?
+No. See row 12 of 3167.
+Subquestion: Can we interpret aligned segments as serving a similar function in the story?
+\end{comment}
+
+However, despite the sentence-level complexity of \textsc{WritingPrompts},
+the stories themselves tend to have very simple structure.
+Due to their status as short stories, the traditional exposition, rising action,
+falling action, and conclusion segmentations do not fit very well.
+The short stories condense the structure and combine or completely leave out parts.
+Additionally, as we truncate stories at 25 sentences, we may miss the conclusion
+as well as the falling action.
+
+With the SBERT and data limitations in mind, we examine a particular set of 5 stories 
+with nontrivial alignments as a case study.
+The prompt and first few sentences of each story are given in Figure~\ref{fig:story-starts}.
+We find that the initial heuristics for finding sets of stories using the bigram BoS representations,
+and subsequently the pairwise alignment distances is effective at finding similar stories.
+As the stories in our case study cluster are all about outer space, we refer to them as
+the space story cluster.
+The multiple alignment for the cluster, in Figure~\ref{fig:msa},
+although sparse, shows some evidence of storylines.
+Indices 1-14 of the alignment appear to be the introduction of stories 1, 2, 3, and 5,
+with story 4 taking a less conventional structure and style.
+Due to their nature as short stories, much of the remainder of the stories fall under exposition:
+the stories unfortunately do not obey the rule ``show don't tell''.
+
+We present a good sub-alignment in Figure~\ref{fig:good-alignment},
+which involves indices 11 and 12 in Figure~\ref{fig:msa}.
+This particular alignment occurs early in the multiple alignment,
+and captures shared structure across four of the five stories
+and marks the end of the introduction section mentioned previously.
+
+We also examine a poor sub-alignment in Figure~\ref{fig:bad-alignment},
+which involves indices 31-34 from the multiple alignment.
+The fragment from story 4 occurs towards the end that story's introduction,
+yet is aligned to sentences that occur after story 5's introduction.
+We hypothesize that story 4 is dissimilar to the other four stories,
+causing errors in the alignment.
+
+The full multiple alignment for this cluster, as well as other clusters,
+can be viewed by following the instructions at the following site:
+\href{https://github.com/dongruoping/story-clustering/}{github.com/dongruoping/story-clustering}.
+
+\begin{figure}[h]
+\centering
+\small
+\begin{tabular}{|p{\textwidth}|}
+\hline
+\textbf{Story 1}
+\\
+\hline
+\\
+\textit{After hundreds of years of sending messages into the sky , humanity receives its first message from intelligent life . Decoded it simply says , `` Be quiet before they find you . ''}
+\\
+\\
+'' Zebin exclaimed as he received yet one more channel of communication from the Earth .
+Twenty years ago , the ambivalence over whether KIC 8462852 was in actuality an `` alien mega structure '' had finally come to an end after nearly 200 years of joint scientific endeavour by the leading lieges of the Earth .
+Since then , humanity had been trying with fervor to try and communicate with the star classified as a Dyson Sphere around 1480 light years away hoping that the far advanced civilisation might be generous enough to show the earthlings a way to solve their own energy crisis .
+\\
+\hline
+\textbf{Story 2}
+\\
+\hline
+\\
+\textit{Sunday Free Write : Leave A Story , Leave A Comment - New CSS Edition !}
+\\
+\\
+In 2056 NASA intercepted a frequency that was not of Earth .
+With its point of origin unknown they began to study it in an attempt to discover from whence it came .
+As it was studied it became known as the whoa signal , mockingly after the famous `` wow !
+\\
+\\
+\hline
+\textbf{Story 3}
+\\
+\hline
+\\
+\textit{By 2345 humanity has colonized most of the solar system and have started sending probes beyond sol , when one day , a frantic interstellar message is received saying `` do not leave the sol system ''}
+\\
+\\
+Listen well childen , for I have a Story of Old Earth to tell .
+Long ago , in ages past , the Men of ages past had but one True world , and had not yet learned to truely swim across the stars .
+In the nuturing embrace of Sol , humanity sowed life in the wake of the places Man gone .
+\\
+\\
+\hline
+\textbf{Story 4}
+\\
+\hline
+\\
+\textit{As the universe resonates for its final time , heat death approaching , the last energy of the universe is used to send a message .}
+\\
+\\
+We knew something was going on , we knew something at any time would happen as time went on .
+Millennia after millennia we saw the lights fade out year by year pondering if new ones will be born to re-convey balance in the universe , but no the night sky kept getting darker star by star .
+We did n't care at first but the scientists all around our universe that we spread around knew something was wrong but were too busy with inorganically creating life on a possibly inhabitable planet around Zylon-B .
+\\
+\\
+\hline
+\textbf{Story 5}
+\\
+\hline
+\\
+\textit{Astronauts discover an abandoned space station orbiting a small moon . It is the far future .}
+\\
+\\
+“ Alright , we ’ re here , ” Captain Schiff said as the blocky craft approached the small disc-like object orbiting around Io , one of the five Galilean moons of Jupiter .
+An astronomer working for Global Colony Services , GSC , a young but highly profitable organization with fledgling colonies on the Moon , Mars , and in the asteroid belt , had spotted an irregular object in lunar-synchronous orbit that wasn ’ t there last year .
+The GSC , or rather the league of nations sponsoring it , was concerned about a potential threat to the admittedly massive investments it had made in the asteroid belt , so it had sent the great ship MecaBubo 1 out to investigate .
+\\
+\hline
+\end{tabular}
+\caption{
+\label{fig:story-starts}
+The first few sentences from each of the 5 stories in our space story cluster analysis.
+The prompt is for each story is given in italics.
+All stories have a space-related theme.
+}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5in,trim=0em 12em 0em 12em,clip]{img/msa3167.png}
+\caption{
+\label{fig:msa}
+The multiple story alignment of the space story cluster, obtained via progressive alignment.
+We refer to the story in the top-most row as story 1, down through the bottom-most row
+as story 5.
+Each colored square corresponds to a sentence from the corresponding story,
+while a dark square corresponds to a gap.
+Sentences within a row proceed in order of their appearance in the story;
+only gaps are inserted within each row.
+An identical dummy beginning-of-story sentence token was inserted at the start of each story,
+yielding the full column of matches at index 0.
 }
 \end{figure}
 
 
+\begin{figure}[h]
+\centering
+\small
+\begin{tabular}{|p{0.25\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|}
+\hline
+\textbf{Story 1} & \textbf{Story 2} & \textbf{Story 3} & \textbf{Story 5}
+\\
+\hline
+ Twenty years ago , the ambivalence over whether KIC 8462852 was in actuality an `` alien mega structure '' had finally come to an end after nearly 200 years of joint scientific endeavour by the leading lieges of the Earth .
+& NASA discovered the signal was encrypted like nothing they had ever dreamed of ; the discovery of the encryption itself set technology hundreds of years ahead of where it once was .
+&& An astronomer working for Global Colony Services , GSC , a young but highly profitable organization with fledgling colonies on the Moon , Mars , and in the asteroid belt , had spotted an irregular object in lunar-synchronous orbit that wasn ’ t there last year .
+\\
+\hline
+Since then , humanity had been trying with fervor to try and communicate with the star classified as a Dyson Sphere around 1480 light years away hoping that the far advanced civilisation might be generous enough to show the earthlings a way to solve their own energy crisis .
+& It sparked the golden age of exploration in our solar system ; Ceres , Vesta , Hektor , Thisbe , Diotina , Fortuna were among many asteroids in the asteroid belt that were to be mined and inhabited ; the once failed colonization of Mars was reattempted and achieved , Europa of Jupiter , Titan of Saturn and Triton of Neptune all were to be colonized and inhabited ; Man had even reached as far as the Oort Cloud in the outer reaches of our solar system as early as 2096 .
+& From the Illiuminious research Stations of Mercury , to the Ruins of Old Chicago , Humanity had taken to the space around Sol with great bravado .
+& The GSC , or rather the league of nations sponsoring it , was concerned about a potential threat to the admittedly massive investments it had made in the asteroid belt , so it had sent the great ship MecaBubo 1 out to investigate .
+\\
+\hline
+\end{tabular}
+\caption{
+\label{fig:good-alignment}
+An example of a good alignment between 4 story segments from the multiple alignment.
+The first sentences from stories 1, 2, and 5 detail an event which sparked the following sentences.
+The next sentences from all four stories mention a form of exploration, investigation, or expansion.
+}
+\end{figure}
 
+
+\begin{figure}[h]
+\centering
+\small
+\begin{tabular}{|p{0.5\textwidth}|p{0.5\textwidth}|}
+\hline
+\textbf{Story 4} & \textbf{Story 5}
+\\
+\hline
+We tried making stars but they all died out faster then the stars above but it seemed somehow to make our time last just a little bit longer .
+& Not even great technicians at that, since the ship could handle damn near everything itself .
+\\
+\hline
+We had time to formulate whats going on and a joint meeting of scientists from all around the corners of the universe .
+& We were there as human eyes and ears , witnesses to send back any special details , in case they were necessary , and mechanics to fix the ship in case one of those “ one in a million ” scenarios cropped up ( which seemed to be happening more and more often since children of Adam and Eve began to colonize their small corner of the cosmos .
+\\
+\hline
+Some full robotic now , half robotic and humanoid , one was full humanoid from Earth 1B and some that looked so foreign from living on a planet with no sunlight for 3 years at a time with the vegetation growing above 40 feet in the air .
+& \\
+\hline
+Enough about the scientists though .
+& Schiff was our leader , and a good enough man , if a bit formal .
+\\
+\hline
+\end{tabular}
+\caption{
+\label{fig:bad-alignment}
+An example of a poor alignment between two story segments from the multiple alignment.
+The sentences are weak semantic matches, although both segments
+serve as exposition in their respective stories.
+}
+\end{figure}
+
+\section{Discussion}
+We present a comparison of objectives and algorithms for performing multiple alignment,
+with the goal of inducing storylines.
+We find that progressive alignment results in the best alignment qualitatively.
+Analysis of the output of the progressive revealed some structure in stories,
+but the results were also obscured with noise from three possible sources:
+1) suboptimal choices of story sets, 2) suboptimal alignments from the algorithm, 
+3) behaviour of the sentence representations obtained from SBERT on out-of-domain data.
+For our next step, we will improve the accuracy and scalability of our alignment algorithm
+in order to apply it to even larger subsets of stories, addressing problems 1 and 2.
+We hypothesize that by increasing the number of stories aligned, we will be able to 
+improve the quality of the alignments by increasing the probability that there is a story
+with a similar storyline.
 
 \newpage
 \bibliographystyle{plainnat}

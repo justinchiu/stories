@@ -1,17 +1,15 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{7}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Chen and Ng(2004)]{lei2004triangle}
-Lei Chen and Raymond Ng.
-\newblock On the marriage of lp-norms and edit distance.
-\newblock In \emph{Proceedings of the Thirtieth International Conference on
-  Very Large Data Bases - Volume 30}, VLDB '04, page 792–803. VLDB Endowment,
-  2004.
-\newblock ISBN 0120884690.
+\bibitem[Bowman et~al.(2015)Bowman, Angeli, Potts, and Manning]{bowman2015snli}
+Samuel~R. Bowman, Gabor Angeli, Christopher Potts, and Christopher~D. Manning.
+\newblock A large annotated corpus for learning natural language inference.
+\newblock \emph{CoRR}, abs/1508.05326, 2015.
+\newblock URL \url{http://arxiv.org/abs/1508.05326}.
 
 \bibitem[Fan et~al.(2018)Fan, Lewis, and Dauphin]{fan2018writingprompts}
 Angela Fan, Mike Lewis, and Yann~N. Dauphin.
@@ -47,5 +45,12 @@ Nils Reimers and Iryna Gurevych.
   China, November 2019. Association for Computational Linguistics.
 \newblock \doi{10.18653/v1/D19-1410}.
 \newblock URL \url{https://www.aclweb.org/anthology/D19-1410}.
+
+\bibitem[Williams et~al.(2017)Williams, Nangia, and Bowman]{williams2017mnli}
+Adina Williams, Nikita Nangia, and Samuel~R. Bowman.
+\newblock A broad-coverage challenge corpus for sentence understanding through
+  inference.
+\newblock \emph{CoRR}, abs/1704.05426, 2017.
+\newblock URL \url{http://arxiv.org/abs/1704.05426}.
 
 \end{thebibliography}
