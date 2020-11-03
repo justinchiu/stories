@@ -351,8 +351,6 @@ INPUT /usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
 INPUT img/prog125vhcia.png
 INPUT ./img/prog125vhcia.png
 INPUT ./img/prog125vhcia.png
-INPUT img/prog125vhcia.png
-INPUT ./img/prog125vhcia.png
 INPUT img/senlen-v-nn-dist.png
 INPUT ./img/senlen-v-nn-dist.png
 INPUT ./img/senlen-v-nn-dist.png
