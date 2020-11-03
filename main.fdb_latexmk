@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1604363021 "main.aux" "main.bbl" "main" 1604363022
+["bibtex main"] 1604363859 "main.aux" "main.bbl" "main" 1604363860
   "/usr/local/texlive/2018/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1480098435 26816 ffe5423d2019860bad9f54bc402fac15 ""
   "bib.bib" 1604356133 12044 ae9d9cda04deffee28a049ba0d57d952 ""
-  "main.aux" 1604363022 10969 080f6dd61759afda5b542087c31e2b5b ""
+  "main.aux" 1604363860 10969 b9e489778cd9cfa31ef7b7d6916e02d7 ""
   (generated)
-  "main.bbl"
   "main.blg"
-["pdflatex"] 1604363021 "main.tex" "main.pdf" "main" 1604363022
+  "main.bbl"
+["pdflatex"] 1604363859 "main.tex" "main.pdf" "main" 1604363860
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -238,13 +238,13 @@
   "img/msa3167.png" 1604299215 19725 f42de6a988bd9de054961b2155e6311a ""
   "img/prog125vhcia.png" 1603908496 59713 6dd01e30030032d83db6fc634c8f2473 ""
   "img/senlen-v-nn-dist.png" 1604208982 49265 190f741f0319cc6d67acea952ec6c144 ""
-  "main.aux" 1604363022 10969 080f6dd61759afda5b542087c31e2b5b ""
-  "main.bbl" 1604363021 3998 0cc424da6aa5b86b4f66e14647273a9d "bibtex main"
-  "main.out" 1604363022 597 60978221134effec38344ba688b74515 ""
-  "main.tex" 1604363021 34872 2eb52c73cbe68d57f5d46f6ec24452a8 ""
+  "main.aux" 1604363860 10969 b9e489778cd9cfa31ef7b7d6916e02d7 ""
+  "main.bbl" 1604363859 3998 0cc424da6aa5b86b4f66e14647273a9d "bibtex main"
+  "main.out" 1604363860 597 60978221134effec38344ba688b74515 ""
+  "main.tex" 1604363857 34791 feba416b3c15fc42acf560c4b419c493 ""
   "mystyle.sty" 1603995710 2842 ca0cdd090996135030989580ca3e88b5 ""
   (generated)
+  "main.pdf"
+  "main.out"
   "main.log"
   "main.aux"
-  "main.out"
-  "main.pdf"
