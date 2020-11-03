@@ -1,9 +1,17 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alayrac et~al.(2015)Alayrac, Bojanowski, Agrawal, Sivic, Laptev, and
+  Lacoste{-}Julien]{alayrac2015align}
+Jean{-}Baptiste Alayrac, Piotr Bojanowski, Nishant Agrawal, Josef Sivic, Ivan
+  Laptev, and Simon Lacoste{-}Julien.
+\newblock Learning from narrated instruction videos.
+\newblock \emph{CoRR}, abs/1506.09215, 2015.
+\newblock URL \url{http://arxiv.org/abs/1506.09215}.
 
 \bibitem[Bowman et~al.(2015)Bowman, Angeli, Potts, and Manning]{bowman2015snli}
 Samuel~R. Bowman, Gabor Angeli, Christopher Potts, and Christopher~D. Manning.
@@ -23,6 +31,12 @@ Tom~B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan,
   Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford,
   Ilya Sutskever, and Dario Amodei.
 \newblock Language models are few-shot learners, 2020.
+
+\bibitem[D'haeseleer(2006)]{biomotif}
+Patrik D'haeseleer.
+\newblock What are dna sequence motifs?
+\newblock \emph{Nature Biotechnology}, 2006.
+\newblock URL \url{https://rdcu.be/b9Co9}.
 
 \bibitem[Fan et~al.(2018)Fan, Lewis, and Dauphin]{fan2018writingprompts}
 Angela Fan, Mike Lewis, and Yann~N. Dauphin.
@@ -47,6 +61,11 @@ Dan Gusfield.
 \newblock \emph{Multiple String Comparison – The Holy Grail}, page 332–369.
 \newblock Cambridge University Press, 1997.
 \newblock \doi{10.1017/CBO9780511574931.017}.
+
+\bibitem[Jin et~al.(2020)Jin, Barzilay, and Jaakkola]{wengong2020moleculemotif}
+Wengong Jin, Regina Barzilay, and Tommi Jaakkola.
+\newblock Hierarchical generation of molecular graphs using structural motifs,
+  02 2020.
 
 \bibitem[Petitjean et~al.(2011)Petitjean, Ketterlin, and
   Gan{\c{c}}arski]{petitjean2011dba}

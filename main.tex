@@ -18,23 +18,25 @@
 \section{Introduction}
 Modern generative models of text are extremely flexible, with huge amounts of parameters
 trained on vast amounts of data \citep{brown2020language}.
-However, black-box text generation models may not be satisfactory in all text-generation
+However, these black-box text generation models may not be satisfactory in all text-generation
 scenarios, especially when there is risk associated with the output.
 In such scenarios, a controllable model with explicit structure would allow
-risk mitigation via a human-in-the-loop process.
+risk mitigation via a human-in-the-loop process,
+as interpretable structure would allow for an intuitive intervention interface
+in the generative process.
 
-Our goal is to design structured, generative story models by modeling storylines.
+Our goal is to design structured generative story models by modeling storylines.
 Prior work has noted that including structure in the generative model improves coherence
-in the generations \citep{yao2018storyline,fan2019structure}.
+\citep{yao2018storyline,fan2019structure}.
 However, prior investigations into narrative structure use hand-crafted representations,
 such as entity coreference or keywords.
 We explore a different definition of what constitutes a storyline:
-We hypothesize that storylines are composed of segments that function
+We hypothesize that storylines are composed of groups of sentences, or segments, that function
 similar to motifs in biological sequences.
 Motifs in biological sequences are recurring patterns that are believed to have
-biological signifiance.
+biological signifiance \citep{biomotif}.
 For example, they may determine how protein interactions take place.
-Analogously, we posit that storyline segments should determine how a reader interprets
+Analogously, we posit that storyline segments determine how a reader interprets
 a story.
 
 Modeling reader interpretation is very difficult, as eliciting such an interpretation from a human
@@ -45,8 +47,8 @@ downstream effects, and only use similarity between elements of the sequences th
 
 Typically, these similarity measures are derived from manually-specified rules specific
 to biological applications.
-Our hypothesis, that storylines segments have a similar interpretive function,
-implies that the similarity measure for storylines should be semantic similarity.
+Our hypothesis, that similar storylines segments have a similar effect on readers,
+implies that the similarity measure for storylines should be semantic.
 We therefore turn to large pre-trained sentence representations \citep{reimers2019sbert},
 as they have been shown to perform very well on related tasks such as natural language 
 inference and entailment.
@@ -55,6 +57,38 @@ We perform an exploratory analysis of storyline induction by utilizing
 biological sequence alignment algorithms as well as large pretrained sentence representations.
 We show that alignment algorithms built upon measures of semantic similarity 
 are able to extract common structure from stories.
+
+\section{Related Work}
+Automatic story generation is a difficult task.
+The best-performing language models are extremely flexible, but not specialized
+for generating coherent stories.
+Additionally, highly flexible black-box models are difficult to control,
+as they were not designed with intervention in mind.
+Prior work addresses this problem by using incorporating hand-designed proxies
+of storylines, such as keywords \citep{yao2018storyline}
+or information from classical NLP pipelines \citep{fan2019structure}.
+Although effective at improving the generative model,
+approaches that require specifying storyling representations
+are unlikely to scale to many use-cases.
+
+Work in structured molecule generation also benefits from a 
+hierarchical generation process.
+The structured generative model in \citet{wengong2020moleculemotif}
+utilize graph motifs were useful for improving a generative model of molecules.
+Although the motifs in molecules are graph-based, and therefore both
+easier to identify and structurally different than the sequence motifs we consider,
+the improvements to the generative model are significant.
+
+A recent application of biological sequence algorithms
+by \citet{alayrac2015align} applies techniques from alignment
+to the problem of aligning instructional videos to textual narrations.
+Analogous to storyline induction from multiple stories,
+they aim to jointly align multiple narratives to video
+in order to discover actions sequences.
+Interestingly, they found that classical approaches
+to sequence alignment are outperformed by modern optimization techniques.
+Storylines are much more complex than action sequences from instructional videos,
+as the intentions behind stories vary greatly.
 
 \section{Background: Pairwise Sequence Alignment}
 The goal of pairwise sequence alignment is to find a minimum cost alignment
@@ -618,6 +652,7 @@ The GSC , or rather the league of nations sponsoring it , was concerned about a 
 The first few sentences from each of the 5 stories in our space story cluster analysis.
 The prompt is for each story is given in italics.
 All stories have a space-related theme.
+The first two sentences of story 5 have been filtered out, as they repeated the prompt.
 }
 \end{figure}
 
