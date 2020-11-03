@@ -16,21 +16,45 @@
 \maketitle
 
 \section{Introduction}
-\begin{comment}
-% Improve coherency of generative models of text by discovering a notion of storylines.
-Our goal is to improve the coherency of generative story models by modeling storylines.
-As an alternative to black-box models with little explicit structure,
-prior work has noted that including structure in the generative model improves coherence
+Modern generative models of text are extremely flexible, with huge amounts of parameters
+trained on vast amounts of data \citep{brown2020language}.
+However, black-box text generation models may not be satisfactory in all text-generation
+scenarios, especially when there is risk associated with the output.
+In such scenarios, a controllable model with explicit structure would allow
+risk mitigation via a human-in-the-loop process.
+
+Our goal is to design structured, generative story models by modeling storylines.
+Prior work has noted that including structure in the generative model improves coherence
 in the generations \citep{yao2018storyline,fan2019structure}.
 However, prior investigations into narrative structure use hand-crafted representations,
 such as entity coreference or keywords.
-We hope to eventually alleviate the need for hand-crafted structure via structured generative models.
+We explore a different definition of what constitutes a storyline:
+We hypothesize that storylines are composed of segments that function
+similar to motifs in biological sequences.
+Motifs in biological sequences are recurring patterns that are believed to have
+biological signifiance.
+For example, they may determine how protein interactions take place.
+Analogously, we posit that storyline segments should determine how a reader interprets
+a story.
 
-We first 
+Modeling reader interpretation is very difficult, as eliciting such an interpretation from a human
+would be very expensive.
+Thankfully, biological sequence alignment algorithms offer a solution to this problem.
+Biological sequence alignment algorithms find motifs without directly modeling
+downstream effects, and only use similarity between elements of the sequences themselves.
+
+Typically, these similarity measures are derived from manually-specified rules specific
+to biological applications.
+Our hypothesis, that storylines segments have a similar interpretive function,
+implies that the similarity measure for storylines should be semantic similarity.
+We therefore turn to large pre-trained sentence representations \citep{reimers2019sbert},
+as they have been shown to perform very well on related tasks such as natural language 
+inference and entailment.
+
 We perform an exploratory analysis of storyline induction by utilizing 
-large pretrained sentence representations and alignment methods from biological sequence analysis.
-We posit that 
-\end{comment}
+biological sequence alignment algorithms as well as large pretrained sentence representations.
+We show that alignment algorithms built upon measures of semantic similarity 
+are able to extract common structure from stories.
 
 \section{Background: Pairwise Sequence Alignment}
 The goal of pairwise sequence alignment is to find a minimum cost alignment

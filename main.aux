@@ -16,50 +16,56 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{brown2020language}
+\citation{yao2018storyline,fan2019structure}
+\citation{reimers2019sbert}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Background: Pairwise Sequence Alignment}{1}{section.2}}
 \newlabel{eqn:align}{{1}{1}{Background: Pairwise Sequence Alignment}{equation.2.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Problem Setup: Multiple Sequence Alignment}{1}{section.3}}
 \citation{gusfield1997}
 \citation{fengdoolittle}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Problem Setup: Multiple Sequence Alignment}{2}{section.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{2}{section.4}}
 \citation{fengdoolittle}
 \citation{petitjean2011dba}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Methods}{2}{section.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Progressive Alignment}{2}{subsection.4.1}}
-\newlabel{eqn:dplus}{{6}{2}{Progressive Alignment}{equation.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}An Iterative Averaging Algorithm}{2}{subsection.4.2}}
+\citation{fan2018writingprompts}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Progressive Alignment}{3}{subsection.4.1}}
+\newlabel{eqn:dplus}{{6}{3}{Progressive Alignment}{equation.4.6}{}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{alg:progressive}{{1}{3}{Progressive Alignment \relax }{algorithm.1}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces  Progressive Alignment \relax }}{3}{algorithm.1}}
-\newlabel{alg:ia}{{2}{3}{Iterative Averaging Alignment \relax }{algorithm.2}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces  Iterative Averaging Alignment \relax }}{3}{algorithm.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}An Iterative Averaging Algorithm}{3}{subsection.4.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Hill Climbing Algorithm}{3}{subsection.4.3}}
-\citation{fan2018writingprompts}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Experiments}{3}{section.5}}
 \citation{reimers2019sbert}
-\newlabel{alg:hillclimbing}{{3}{4}{Hill Climbing Alignment \relax }{algorithm.3}{}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces  Hill Climbing Alignment \relax }}{4}{algorithm.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Experiments}{4}{section.5}}
+\newlabel{alg:ia}{{2}{4}{Iterative Averaging Alignment \relax }{algorithm.2}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces  Iterative Averaging Alignment \relax }}{4}{algorithm.2}}
+\newlabel{alg:hillclimbing}{{3}{5}{Hill Climbing Alignment \relax }{algorithm.3}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces  Hill Climbing Alignment \relax }}{5}{algorithm.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Results}{5}{section.6}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces   The SP scores and Steiner distances for each of the MSA algorithms. The progressive algorithm optimizes the SP score and achieves the lowest. The hill climbing algorithm initialized with the mean sequence obtained from IA obtains the lowest Steiner distance. We see the algorithms get stuck in local optima, as the hill climbing algorithm initialize with the progressive mean sequence obtains a much higher Steiner distance than if it had been initialized with IA. \relax }}{5}{table.caption.1}}
 \newlabel{tbl:sp_steiner}{{1}{5}{The SP scores and Steiner distances for each of the MSA algorithms. The progressive algorithm optimizes the SP score and achieves the lowest. The hill climbing algorithm initialized with the mean sequence obtained from IA obtains the lowest Steiner distance. We see the algorithms get stuck in local optima, as the hill climbing algorithm initialize with the progressive mean sequence obtains a much higher Steiner distance than if it had been initialized with IA. \relax }{table.caption.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces   The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }}{5}{figure.caption.2}}
-\newlabel{fig:colcounts}{{1}{5}{The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }{figure.caption.2}{}}
 \citation{bowman2015snli,williams2017mnli}
 \citation{fan2018writingprompts}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces   The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }}{6}{figure.caption.2}}
+\newlabel{fig:colcounts}{{1}{6}{The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }{figure.caption.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces   The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }}{6}{figure.caption.3}}
 \newlabel{fig:colcounts}{{2}{6}{The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }{figure.caption.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces   Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc  {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }}{6}{figure.caption.4}}
-\newlabel{fig:len-v-dist}{{3}{6}{Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces   Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc  {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }}{7}{figure.caption.4}}
+\newlabel{fig:len-v-dist}{{3}{7}{Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }{figure.caption.4}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{7}{section.7}}
 \bibstyle{plainnat}
 \bibdata{bib}
 \bibcite{bowman2015snli}{{1}{2015}{{Bowman et~al.}}{{Bowman, Angeli, Potts, and Manning}}}
-\bibcite{fan2018writingprompts}{{2}{2018}{{Fan et~al.}}{{Fan, Lewis, and Dauphin}}}
-\bibcite{fengdoolittle}{{3}{1987}{{{Feng} and {Doolittle}}}{{}}}
-\bibcite{gusfield1997}{{4}{1997}{{Gusfield}}{{}}}
-\bibcite{petitjean2011dba}{{5}{2011}{{Petitjean et~al.}}{{Petitjean, Ketterlin, and Gan{\c {c}}arski}}}
-\bibcite{reimers2019sbert}{{6}{2019}{{Reimers and Gurevych}}{{}}}
-\bibcite{williams2017mnli}{{7}{2017}{{Williams et~al.}}{{Williams, Nangia, and Bowman}}}
+\bibcite{brown2020language}{{2}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, Agarwal, Herbert-Voss, Krueger, Henighan, Child, Ramesh, Ziegler, Wu, Winter, Hesse, Chen, Sigler, Litwin, Gray, Chess, Clark, Berner, McCandlish, Radford, Sutskever, and Amodei}}}
+\bibcite{fan2018writingprompts}{{3}{2018}{{Fan et~al.}}{{Fan, Lewis, and Dauphin}}}
+\bibcite{fan2019structure}{{4}{2019}{{Fan et~al.}}{{Fan, Lewis, and Dauphin}}}
+\bibcite{fengdoolittle}{{5}{1987}{{{Feng} and {Doolittle}}}{{}}}
+\bibcite{gusfield1997}{{6}{1997}{{Gusfield}}{{}}}
+\bibcite{petitjean2011dba}{{7}{2011}{{Petitjean et~al.}}{{Petitjean, Ketterlin, and Gan{\c {c}}arski}}}
+\bibcite{reimers2019sbert}{{8}{2019}{{Reimers and Gurevych}}{{}}}
+\bibcite{williams2017mnli}{{9}{2017}{{Williams et~al.}}{{Williams, Nangia, and Bowman}}}
+\bibcite{yao2018storyline}{{10}{2018}{{Yao et~al.}}{{Yao, Peng, Weischedel, Knight, Zhao, and Yan}}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces   The first few sentences from each of the 5 stories in our space story cluster analysis. The prompt is for each story is given in italics. All stories have a space-related theme. \relax }}{9}{figure.caption.5}}
 \newlabel{fig:story-starts}{{4}{9}{The first few sentences from each of the 5 stories in our space story cluster analysis. The prompt is for each story is given in italics. All stories have a space-related theme. \relax }{figure.caption.5}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces   The multiple story alignment of the space story cluster, obtained via progressive alignment. We refer to the story in the top-most row as story 1, down through the bottom-most row as story 5. Each colored square corresponds to a sentence from the corresponding story, while a dark square corresponds to a gap. Sentences within a row proceed in order of their appearance in the story; only gaps are inserted within each row. An identical dummy beginning-of-story sentence token was inserted at the start of each story, yielding the full column of matches at index 0. \relax }}{10}{figure.caption.6}}
