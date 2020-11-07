@@ -16,13 +16,15 @@
 \maketitle
 
 \section{Introduction}
-Modern generative models of text are extremely flexible, with huge amounts of parameters
-trained on vast amounts of data \citep{brown2020language}.
-However, these black-box text generation models may not be satisfactory in all text-generation
-scenarios, especially when interpretability or control is necessary.
-In such scenarios, a model with explicit structure would be more suitable,
+% long-form generation
+Modern generative models of text are extremely flexible, but remain opaque
+and difficult to control \citep{brown2020language}.
+These black-box text generation models may not be satisfactory in all text-generation
+scenarios, especially when coherent long-form generations are required.
+In such scenarios, a model with explicit hierarchical structure would be more suitable,
 as the structure would afford both interpretability and controllability.
 
+% what kind of structure should we consider
 Our goal is to design structured generative story models by modeling storylines.
 Prior work has noted that including structure in the generative model improves coherence
 \citep{yao2018storyline,fan2019structure}.
@@ -34,15 +36,16 @@ similar to motifs in biological sequences.
 Motifs in biological sequences are recurring patterns that are believed to have
 biological signifiance \citep{biomotif}.
 For example, they may determine how protein interactions take place.
-Analogously, we posit that storyline segments determine how a reader interprets
-a story.
+Analogously, we posit that storyline segments determine how a reader interprets a story.
 
-Modeling reader interpretation is very difficult, as eliciting such an interpretation from a human
-would be very expensive.
-Thankfully, biological sequence alignment algorithms offer a solution to this problem.
+% Avoid getting interpretation supervision by turning to alignment
+Modeling reader interpretation is very difficult, as eliciting interpretations from humans
+is very expensive.
+Thankfully, biological sequence alignment algorithms offer a solution.
 Biological sequence alignment algorithms find motifs without directly modeling
-downstream effects, and only use similarity between elements of the sequences themselves.
+downstream effects, using only a measure of similarity between elements of the sequences.
 
+% Semantic similarity
 Typically, these similarity measures are derived from manually-specified rules specific
 to biological applications.
 Our hypothesis, that similar storylines segments have a similar effect on readers,
@@ -89,31 +92,37 @@ Storylines are much more complex than action sequences from instructional videos
 as the intentions behind stories vary greatly.
 
 \section{Background: Pairwise Sequence Alignment}
-The goal of pairwise sequence alignment is to find a minimum cost alignment
-between sequences of sentences $\bx_1$ and $\bx_2\in\Sigma^*$, where
-sentences are represented by a vector in $\R^n$.
-We additionally add a gap symbol `-' to $\Sigma$, such that 
-$\Sigma = \R^n \cup \set{-}$.
-We refer to elements of $\Sigma$ as tokens.
+Pairwise sequence alignment is used in bioinformatics to measure the similarity between
+two sequences.
+Alignment algorithms extend a measure of similarity from operating on individual elements
+to operating on entire sequences.
+This is accomplished by establishing an element-to-element correspondence between 
+the elements of a pair of sequences such that ordering is preserved.
+This correspondence is obtained by inserting gaps into both sequences.
+Instead of biological sequences, we are interested in aligning stories,
+i.e. sequences of sentences.
+
+Formally, pairwise sequence alignment finds the minimum cost alignment
+between sequences of sentences $\bx_1$ and $\bx_2\in\Sigma^*$,
+where sentences are represented by a vector in $\R^n$.
+We additionally add a gap symbol `-' to $\Sigma$, such that $\Sigma = \R^n \cup \set{-}$.
+We refer to elements of $\Sigma$, which may be a sentence or gap, as tokens.
 
 In order to align two stories, pairwise alignment extends edit distance
-with a distance measure $d: \Sigma\times\Sigma\to\R$ that operates on pairs of tokens,
-one from each story.
+with a distance measure $d: \Sigma\times\Sigma\to\R$ that operates on pairs of tokens.
 The best alignment is given by the following:
 \begin{equation}
 \label{eqn:align}
 \argmin_\pi \sum_{(i, j) \in \pi} d(x_{1i},x_{2j}),
 \end{equation}
 where $\pi$ is a joint path through $\bx_1$ and $\bx_2$.
-Valid paths are obtained by only inserting gaps into the original story
-while preserving order.
+Valid paths are obtained by inserting gaps into the original story,
+preserving order.
 Equation~\ref{eqn:align} can be solved exactly via dynamic programming.
 Let $\bx^\pi_1,\bx^\pi_2$ be the gap-augmented stories obtained by following path $\pi$,
 which are both of length $L$.
 We refer to 
-%\begin{equation}
 $M = \begin{pmatrix}\bx^\pi_1 \\ \bx^\pi_2 \end{pmatrix}$
-%\end{equation}
 as the alignment.
 
 When choosing a distance measure $d$, a key component is how the measure deals with gaps.
@@ -136,7 +145,7 @@ In order to extract storylines, we would like to find patterns that are robust a
 multiple stories. 
 Unfortunately, methods for solving pairwise alignment are not directly applicable, since they
 only consider pairs of stories.
-Instead, we turn to the problem of multiple sequence alignment,
+We instead turn to the problem of multiple sequence alignment,
 which generalizes alignment from pairs of stories to sets of stories.
 
 Given a set of $K$ sequences,
