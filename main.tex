@@ -27,7 +27,7 @@ as the structure would afford controllability.
 % what kind of structure should we consider
 Our goal is to design structured generative story models by modeling storylines.
 Prior work has noted that including structure in the generative model improves coherence
-\citep{yao2018storyline,fan2019structure,ippolito2019rarewords}.
+\citep{yao2018storyline,fan2019structure,ippolito2019rarewords,chandu2020narrative}.
 However, prior investigations into narrative structure use hand-crafted representations,
 such as entity coreference or keywords.
 We explore a different definition of what constitutes a storyline:
@@ -52,6 +52,7 @@ and obtaining annotations.
 Thankfully, biological sequence alignment algorithms offer a solution.
 Biological sequence alignment algorithms find motifs without directly modeling
 downstream effects, using only a measure of similarity between elements of the sequences.
+Given the similarity measure, alignment algorithms do not require further learning.
 
 % Semantic similarity
 Typically, these similarity measures are derived from manually-specified rules specific
@@ -74,8 +75,9 @@ for generating coherent stories.
 Additionally, highly flexible black-box models are difficult to control,
 as they were not designed with intervention in mind.
 Prior work addresses this problem by using incorporating hand-designed proxies
-of storylines, such as keywords \citep{yao2018storyline,ippolito2019rarewords}
-or information from classical NLP pipelines \citep{fan2019structure}.
+of storylines, such as keywords \citep{yao2018storyline,ippolito2019rarewords},
+information from classical NLP pipelines \citep{fan2019structure},
+or visual information \citep{chandu2020narrative}.
 Although effective at improving the generative model,
 approaches that require specifying storyling representations
 are unlikely to scale to many use-cases.

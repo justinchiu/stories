@@ -6,45 +6,45 @@ Database file #1: bib.bib
 Warning--entry type for "wengong2020moleculemotif" isn't style-file defined
 --line 267 of file bib.bib
 Warning--empty journal in fengdoolittle
-You've used 14 entries,
+You've used 15 entries,
             2773 wiz_defined-function locations,
-            678 strings with 8076 characters,
-and the built_in function-call counts, 8192 in all, are:
-= -- 695
-> -- 686
+            683 strings with 8268 characters,
+and the built_in function-call counts, 8623 in all, are:
+= -- 733
+> -- 716
 < -- 7
-+ -- 230
-- -- 216
-* -- 711
-:= -- 1307
-add.period$ -- 54
-call.type$ -- 14
-change.case$ -- 113
-chr.to.int$ -- 14
-cite$ -- 29
-duplicate$ -- 316
-empty$ -- 502
-format.name$ -- 234
-if$ -- 1684
++ -- 240
+- -- 225
+* -- 748
+:= -- 1378
+add.period$ -- 58
+call.type$ -- 15
+change.case$ -- 119
+chr.to.int$ -- 15
+cite$ -- 31
+duplicate$ -- 336
+empty$ -- 533
+format.name$ -- 244
+if$ -- 1772
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 13
-newline$ -- 88
-num.names$ -- 56
-pop$ -- 225
+missing$ -- 14
+newline$ -- 94
+num.names$ -- 60
+pop$ -- 234
 preamble$ -- 1
-purify$ -- 100
+purify$ -- 105
 quote$ -- 0
-skip$ -- 295
+skip$ -- 311
 stack$ -- 0
-substring$ -- 135
-swap$ -- 53
+substring$ -- 137
+swap$ -- 54
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 149
+type$ -- 160
 warning$ -- 1
-while$ -- 51
+while$ -- 54
 width$ -- 0
-write$ -- 208
+write$ -- 223
 (There were 2 warnings)
