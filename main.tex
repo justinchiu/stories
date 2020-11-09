@@ -214,7 +214,8 @@ and a greedy hill climbing algorithm that operates in the space of Steiner seque
 Inspired by the progressive alignment algorithm
 of \citet{fengdoolittle}, we first take a naive approach to approximating
 a multiple sequence alignment.
-Progressive alignments aim to optimize the SP score.
+Progressive alignments aim to optimize the SP score,
+and have been found to perform well despite their simplicity.
 
 Given a set of sequences $\mcX$ and an ordering $\sigma$,
 we progressively align the next sequence in the ordering to the
@@ -260,7 +261,7 @@ and a set of sequences $\mcX$ then uses those alignments to recompute the mean s
 As the DBA algorithm was designed to model expansion and compression, 
 we adapt it for insertion and deletion.
 
-The IA algorithm proceeds in a fashion similar to DBA.
+The IA algorithm proceeds in two steps:
 We first construct a multiple alignment from the
 pairwise alignments, then for each column of the multiple alignment
 compute the token that minimizes the distance to each element within that column.

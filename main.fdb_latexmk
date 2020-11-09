@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1604936488 "main.aux" "main.bbl" "main" 1604937071
+["bibtex main"] 1604936488 "main.aux" "main.bbl" "main" 1604945950
   "/usr/local/texlive/2018/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1480098435 26816 ffe5423d2019860bad9f54bc402fac15 ""
   "bib.bib" 1604936437 16881 9d7b167c7ac3c3365992e9c32c231745 ""
-  "main.aux" 1604937071 10885 881a948a427d9714fe4994643cfb0eb5 ""
+  "main.aux" 1604945950 10885 881a948a427d9714fe4994643cfb0eb5 ""
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1604937070 "main.tex" "main.pdf" "main" 1604937071
+["pdflatex"] 1604945949 "main.tex" "main.pdf" "main" 1604945950
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -238,13 +238,13 @@
   "img/msa3167.png" 1604299215 19725 f42de6a988bd9de054961b2155e6311a ""
   "img/prog125vhcia.png" 1603908496 59713 6dd01e30030032d83db6fc634c8f2473 ""
   "img/senlen-v-nn-dist.png" 1604208982 49265 190f741f0319cc6d67acea952ec6c144 ""
-  "main.aux" 1604937071 10885 881a948a427d9714fe4994643cfb0eb5 ""
+  "main.aux" 1604945950 10885 881a948a427d9714fe4994643cfb0eb5 ""
   "main.bbl" 1604936488 5608 c9433e0e1b86f20209d99440bb6e915b "bibtex main"
-  "main.out" 1604937071 645 41cbf4ce7cfceb5e648d404a717cb5a9 ""
-  "main.tex" 1604937067 37411 6c1706bccb55e43d5815f4cc9bea4a62 ""
+  "main.out" 1604945950 645 41cbf4ce7cfceb5e648d404a717cb5a9 ""
+  "main.tex" 1604945947 37458 d3632673787d2ba2dde7b282f788115b ""
   "mystyle.sty" 1603995710 2842 ca0cdd090996135030989580ca3e88b5 ""
   (generated)
-  "main.aux"
   "main.pdf"
-  "main.log"
+  "main.aux"
   "main.out"
+  "main.log"
