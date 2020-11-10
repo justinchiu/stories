@@ -24,9 +24,9 @@
 \citation{fan2019structure}
 \citation{chandu2020narrative}
 \citation{wengong2020moleculemotif}
-\citation{alayrac2015align}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{1}{section.2}}
+\citation{alayrac2015align}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Background: Pairwise Sequence Alignment}{2}{section.3}}
 \newlabel{eqn:align}{{1}{2}{Background: Pairwise Sequence Alignment}{equation.3.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Problem Setup: Multiple Sequence Alignment}{2}{section.4}}
@@ -37,10 +37,10 @@
 \@writefile{toc}{\contentsline {section}{\numberline {5}Methods}{3}{section.5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Progressive Alignment}{3}{subsection.5.1}}
 \newlabel{eqn:dplus}{{6}{3}{Progressive Alignment}{equation.5.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}An Iterative Averaging Algorithm}{3}{subsection.5.2}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{alg:progressive}{{1}{4}{Progressive Alignment \relax }{algorithm.1}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces  Progressive Alignment \relax }}{4}{algorithm.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}An Iterative Averaging Algorithm}{4}{subsection.5.2}}
 \newlabel{alg:ia}{{2}{4}{Iterative Averaging Alignment \relax }{algorithm.2}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces  Iterative Averaging Alignment \relax }}{4}{algorithm.2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Hill Climbing Algorithm}{4}{subsection.5.3}}
@@ -49,13 +49,13 @@
 \newlabel{alg:hillclimbing}{{3}{5}{Hill Climbing Alignment \relax }{algorithm.3}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces  Hill Climbing Alignment \relax }}{5}{algorithm.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Experiments}{5}{section.6}}
+\citation{bowman2015snli,williams2017mnli}
+\citation{fan2018writingprompts}
 \@writefile{toc}{\contentsline {section}{\numberline {7}Results}{6}{section.7}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces   The SP scores and Steiner distances for each of the MSA algorithms. The progressive algorithm optimizes the SP score and achieves the lowest. The hill climbing algorithm initialized with the mean sequence obtained from IA obtains the lowest Steiner distance. We see the algorithms get stuck in local optima, as the hill climbing algorithm initialize with the progressive mean sequence obtains a much higher Steiner distance than if it had been initialized with IA. \relax }}{6}{table.caption.1}}
 \newlabel{tbl:sp_steiner}{{1}{6}{The SP scores and Steiner distances for each of the MSA algorithms. The progressive algorithm optimizes the SP score and achieves the lowest. The hill climbing algorithm initialized with the mean sequence obtained from IA obtains the lowest Steiner distance. We see the algorithms get stuck in local optima, as the hill climbing algorithm initialize with the progressive mean sequence obtains a much higher Steiner distance than if it had been initialized with IA. \relax }{table.caption.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces   The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }}{6}{figure.caption.2}}
-\newlabel{fig:colcounts}{{1}{6}{The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }{figure.caption.2}{}}
-\citation{bowman2015snli,williams2017mnli}
-\citation{fan2018writingprompts}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces   The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }}{7}{figure.caption.2}}
+\newlabel{fig:colcounts}{{1}{7}{The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }{figure.caption.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces   Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc  {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }}{7}{figure.caption.3}}
 \newlabel{fig:len-v-dist}{{2}{7}{Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{8}{section.8}}

@@ -36,19 +36,21 @@ similar to biological sequence motifs.
 
 % What are motifs
 Biological sequence motifs are recurring patterns that are believed to have
-biological signifiance \citep{biomotif}.
-For example, a motif in DNA may determine how protein interactions take place.
+biological significance \citep{biomotif}.
+For example, a motif in DNA may determine how protein interactions take place
+and play a role in regulating gene expression.
 Analogously, we posit that storyline motifs determine how a reader interprets a story.
-A storyline motif may consist of a sequence of sentences that finishes introducing the
-reader to the setting, signalling the end of introduction and the start of the
+An example of a storyline motif would be a sequence of sentences that finishes 
+introducing characters and setting the story,
+signalling the end of introduction and the start of the
 rising action to the reader.
 
 % Avoid getting interpretation supervision by turning to alignment
 Ideally, we would obtain manually labeled storyline motifs from humans,
 as we have defined motifs to be recurring patterns with a similar effect on readers.
 However, this process would be very expensive.
-It would require both designing an experimental procedure for the labeling
-and obtaining annotations.
+It would require both designing an experimental procedure for labeling motifs
+and also obtaining annotations from humans, both of which are expensive.
 Thankfully, biological sequence alignment algorithms offer a solution.
 Biological sequence alignment algorithms find motifs without directly modeling
 downstream effects, using only a measure of similarity between elements of the sequences.
@@ -60,7 +62,7 @@ to biological applications.
 Our hypothesis, that similar storylines segments have a similar effect on readers,
 suggests that the similarity measure for storylines should be semantic.
 We therefore turn to large pre-trained sentence representations \citep{reimers2019sbert},
-as they have been shown to perform very well on related tasks such as natural language 
+as they have been shown to perform very well on semantic similarity tasks such as natural language 
 inference and entailment.
 
 We perform an exploratory analysis of storyline induction by utilizing 
@@ -212,8 +214,8 @@ and a greedy hill climbing algorithm that operates in the space of Steiner seque
 
 \subsection{Progressive Alignment}
 Inspired by the progressive alignment algorithm
-of \citet{fengdoolittle}, we first take a naive approach to approximating
-a multiple sequence alignment.
+of \citet{fengdoolittle}, we take a greedy approach to approximating
+the multiple sequence alignment problem.
 Progressive alignments aim to optimize the SP score,
 and have been found to perform well despite their simplicity.
 
@@ -251,10 +253,14 @@ Progressive Alignment
 }
 \end{algorithm}
 
+%The progressive alignment can be extended by removing story rows of the alignment
+%and re-aligning that story, leading to an iterative refinement procedure.
+%
+
 \subsection{An Iterative Averaging Algorithm}
 Next, we propose an iterative averaging (IA)
 algorithm which directly optimizes the Steiner distance.
-The IA algorithm is inspired by the
+The IA algorithm is based on the
 DTW Barycenter Averaging (DBA) algorithm \citep{petitjean2011dba},
 which iteratively computes pairwise alignments between a mean sequence $\bz$
 and a set of sequences $\mcX$ then uses those alignments to recompute the mean sequence. 
@@ -269,7 +275,7 @@ As we model insertions and deletions,
 there is ambiguity when mapping the pairwise alignments to a joint multiple alignment.
 Namely, there are multiple ways of aligning tokens from $\mcX$ that are all aligned to gaps
 in $\bz$.
-We resolve this ambiguity heuristically by inserting gaps in
+We resolve this ambiguity heuristically by inserting additional gaps into
 the $\bx_i^\pi$ obtained by pairwise alignment with $\bz$
 so that all tokens aligned to elements in $\bz$ are aligned.
 The algorithm is detailed in Algorithm~\ref{alg:ia}.
@@ -324,7 +330,7 @@ Iterative Averaging Alignment
 As the previous iterative algorithm used a heuristic in the averaging step
 that was computationally cheap but not guaranteed to improve the Steiner distance,
 we also consider a greedy hill climbing (HC) algorithm that is more expensive but
-guaranteed to improve the objective.
+only improves the objective.
 
 The hill climbing algorithm proceeds as follows: Given an initial mean sequence $\bz$,
 we first compute the pairwise alignments from $\bz$ to each sequence in $\mcX$.
