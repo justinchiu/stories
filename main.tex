@@ -81,13 +81,23 @@ The best-performing language models are extremely flexible, but not specialized
 for generating coherent stories.
 Additionally, highly flexible black-box models are difficult to control,
 as they were not designed with intervention in mind.
-Prior work addresses this problem by using incorporating hand-designed proxies
+Prior work addresses coherence by using incorporating hand-designed proxies
 of storylines, such as keywords \citep{yao2018storyline,ippolito2019rarewords},
 information from classical NLP pipelines \citep{fan2019structure},
 or visual information \citep{chandu2020narrative}.
 Although effective at improving the generative model,
-approaches that require specifying storyling representations
-are unlikely to scale to many use-cases.
+approaches that require specifying storyline representations
+are unlikely to scale to many use-cases and diverse domains.
+
+Another line of work seeks to increase the controllability of black-box
+generative models without adding structure.
+One approach is to train models for story infilling in
+order to propose edits within a story \citep{ippolito2019infill},
+and another is to learn post-hoc controllability \citep{uber2019plug}.
+Both of these approaches suffer from a lack of interpretability,
+which complicates interaction with users.
+A hierarchical generation process allows for a user interface
+to be an integral part of the model.
 
 Work in structured molecule generation also benefits from a 
 hierarchical generation process.
@@ -142,19 +152,19 @@ $M = \begin{pmatrix}\bx^\pi_1 \\ \bx^\pi_2 \end{pmatrix}$
 as the alignment.
 
 When choosing a distance measure $d$, a key component is how the measure deals with gaps.
-There are two approaches: 1) gaps correspond to insertion or deletions and 2) gaps
+There are two approaches: assume that 1) gaps correspond to insertion or deletions and 2) gaps
 correspond to expansions or compressions.
 Classical algorithms from biology, such as Needleman-Wunsch, model insertions and deletions,
-as random mutations result in completely new elements that do not have a good interpretation
-as an expansion or compression.
+as random mutations result in completely new elements in DNA.
 Other algorithms such as Dynamic Time Warping (DTW) model expansions and compressions,
 since warping may occur due to various reasons such as sampling at different frequencies.
 With stories, an example of expansion would be to split a long sentence into
 shorter sentences.
-It is possible to model both of these phenomena in the distance measure.
-We assume that adding a sentence to a story is more likely to
-add new information and therefore be semantically different from preceding sentences,
-and thus only model insertion and deletion.
+Although it is possible to model both of these phenomena in the distance measure,
+we assume that adding a sentence to a story is closer to a mutation than an expansion.
+A new sentence is likely to add new information and therefore be
+semantically different from preceding sentences.
+We therefore only model insertion and deletion in the distance measure.
 
 \section{Problem Setup: Multiple Sequence Alignment}
 In order to extract storylines, we would like to find patterns that are robust across

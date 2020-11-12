@@ -1,4 +1,4 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -38,6 +38,15 @@ Khyathi~Raghavi Chandu, Ruo{-}Ping Dong, and Alan~W. Black.
 \newblock \emph{CoRR}, abs/2010.13944, 2020.
 \newblock URL \url{https://arxiv.org/abs/2010.13944}.
 
+\bibitem[Dathathri et~al.(2019)Dathathri, Madotto, Lan, Hung, Frank, Molino,
+  Yosinski, and Liu]{uber2019plug}
+Sumanth Dathathri, Andrea Madotto, Janice Lan, Jane Hung, Eric Frank, Piero
+  Molino, Jason Yosinski, and Rosanne Liu.
+\newblock Plug and play language models: {A} simple approach to controlled text
+  generation.
+\newblock \emph{CoRR}, abs/1912.02164, 2019.
+\newblock URL \url{http://arxiv.org/abs/1912.02164}.
+
 \bibitem[D'haeseleer(2006)]{biomotif}
 Patrik D'haeseleer.
 \newblock What are dna sequence motifs?
@@ -68,13 +77,23 @@ Dan Gusfield.
 \newblock Cambridge University Press, 1997.
 \newblock \doi{10.1017/CBO9780511574931.017}.
 
-\bibitem[Ippolito et~al.(2019)Ippolito, Grangier, Callison-Burch, and
-  Eck]{ippolito2019rarewords}
+\bibitem[Ippolito et~al.(2019{\natexlab{a}})Ippolito, Grangier, Callison-Burch,
+  and Eck]{ippolito2019infill}
 Daphne Ippolito, David Grangier, Chris Callison-Burch, and Douglas Eck.
 \newblock Unsupervised hierarchical story infilling.
 \newblock In \emph{Proceedings of the First Workshop on Narrative
-  Understanding}, pages 37--43, Minneapolis, Minnesota, June 2019. Association
-  for Computational Linguistics.
+  Understanding}, pages 37--43, Minneapolis, Minnesota, June
+  2019{\natexlab{a}}. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/W19-2405}.
+\newblock URL \url{https://www.aclweb.org/anthology/W19-2405}.
+
+\bibitem[Ippolito et~al.(2019{\natexlab{b}})Ippolito, Grangier, Callison-Burch,
+  and Eck]{ippolito2019rarewords}
+Daphne Ippolito, David Grangier, Chris Callison-Burch, and Douglas Eck.
+\newblock Unsupervised hierarchical story infilling.
+\newblock In \emph{Proceedings of the First Workshop on Narrative
+  Understanding}, pages 37--43, Minneapolis, Minnesota, June
+  2019{\natexlab{b}}. Association for Computational Linguistics.
 \newblock \doi{10.18653/v1/W19-2405}.
 \newblock URL \url{https://www.aclweb.org/anthology/W19-2405}.
 
