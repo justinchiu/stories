@@ -202,8 +202,11 @@ Let $D: \Sigma^* \times \Sigma^* \to \R$ be such a measure,
 obtained via a pairwise alignment using the token distance $d$.
 The Steiner distance is then given by
 \begin{equation}
-\min_\bz \mathrm{SD}(\mcX, \bz) = \min_\bz \sum_{i=1}^K D(\bx_i, \bz).
+\min_\bz \mathrm{SD}(\mcX, \bz) = \min_\bz \sum_{i=1}^K D(\bx_i, \bz),
 \end{equation}
+where the optimal $\bz$ is the average sequence, also referred to as the Steiner sequence.
+Given a set of stories, their average sequence $\bz$ has a neat intepretation
+as a common storyline.
 
 We utilize algorithms that optimize either the SP score and the Steiner distance
 in order to perform multiple alignment.
