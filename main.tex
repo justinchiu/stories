@@ -16,17 +16,22 @@
 \maketitle
 
 \section{Introduction}
-% long-form generation
-Modern generative models of text are extremely flexible, but remain opaque
-and difficult to control \citep{brown2020language}.
-These black-box text generation models may not be satisfactory in all scenarios,
-especially when coherent long-form generations are desired.
-In such scenarios, a model with explicit hierarchical structure would be more suitable,
-as the structure would afford controllability.
+% long-form generation is hard
+Modern generative models of text are extremely flexible and accurate,
+but may become incoherent when generating long texts due to a limited context window
+\citep{brown2020language}.
+Additionally, the popular approach to language modeling relies on opaque
+and difficult to control models.
+These two flaws limit the applicability of modern models to story generation,
+where coherent long-form generations are required
+and controllability is necessary for quality control.
+In such scenarios, a model with explicit hierarchical structure is much more suitable,
+as hierarchical structure separates the low-level process of generating 
+words and sentences from story structure.
 
 % what kind of structure should we consider
 Our goal is to design structured generative story models by modeling storylines.
-Prior work has noted that including structure in the generative model improves coherence
+Prior work notes that including structure in the generative model improves coherence
 \citep{yao2018storyline,fan2019structure,ippolito2019rarewords,chandu2020narrative}.
 However, prior investigations into narrative structure use hand-crafted representations,
 such as entity coreference or keywords.
@@ -35,22 +40,22 @@ We hypothesize that storylines are composed of groups of sentences, or segments,
 similar to biological sequence motifs.
 
 % What are motifs
-Biological sequence motifs are recurring patterns that are believed to have
+Biological sequence motifs are recurring patterns that have
 biological significance \citep{biomotif}.
 For example, a motif in DNA may determine how protein interactions take place
 and play a role in regulating gene expression.
 Analogously, we posit that storyline motifs determine how a reader interprets a story.
-An example of a storyline motif would be a sequence of sentences that finishes 
-introducing characters and setting the story,
-signalling the end of introduction and the start of the
-rising action to the reader.
+An example of a storyline motif is a sequence of sentences that finishes 
+introducing characters and setting the story.
+This motif would signal the end of introduction, preparing the reader for 
+the start of the rising action.
 
 % Avoid getting interpretation supervision by turning to alignment
-Ideally, we would obtain manually labeled storyline motifs from humans,
+Ideally, we could obtain manually labeled storyline motifs from humans,
 as we have defined motifs to be recurring patterns with a similar effect on readers.
 However, this process would be very expensive.
 It would require both designing an experimental procedure for labeling motifs
-and also obtaining annotations from humans, both of which are expensive.
+and also obtaining annotations from humans, both of which are costly.
 Thankfully, biological sequence alignment algorithms offer a solution.
 Biological sequence alignment algorithms find motifs without directly modeling
 downstream effects, using only a measure of similarity between elements of the sequences.
