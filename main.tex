@@ -187,37 +187,26 @@ where each $\bx_i^\pi$ is obtained by inserting gaps into the corresponding $\bx
 to ensure that each $\bx_i^\pi$ is of length $L$, as in pairwise alignment.
 
 There are two common measures of quality for a multiple alignment:
-1) the sum of pairs (SP) score and 2) the consensus error or Steiner distance.
+1) the sum of pairs (SP) score and 2) the Steiner distance.
 All methods use the distance measure $d: \Sigma\times\Sigma\to\R$ from pairwise alignment.
 The SP score is given by
 \begin{equation}
 \mathrm{SP}(M) = \sum_{l=1}^L \sum_{i=1}^K \sum_{j=i+1}^K d(M_{il}, M_{jl}),
 \end{equation}
 obtained by summing the pairwise distances between elements of $M$ in the same column.
-The consensus error given a consensus sequence $\bz\in\Sigma^L$ is defined as follows:
+The Steiner distance can be computed without explicitly constructing a multiple alignment.
+Rather than operating on a multiple alignment, the Steiner distance instead
+measures the distance from an average sequence to each of the sequences $\bx_k$.
+In order to define the Steiner distance, we need a measure of distance between sequences.
+Let $D: \Sigma^* \times \Sigma^* \to \R$ be such a measure,
+obtained via a pairwise alignment using the token distance $d$.
+The Steiner distance is then given by
 \begin{equation}
-\mathrm{CE}(M, \bz) = \sum_{l=1}^L \sum_{i=1}^K d(M_{il}, z_{l}),
+\min_\bz \mathrm{SD}(\mcX, \bz) = \min_\bz \sum_{i=1}^K D(\bx_i, \bz).
 \end{equation}
-the sum of the distances from each element in a column to $z_l$.
-The mean sequence $\bz\in\Sigma^L$ that minimizes this error is known as the consensus sequence.
-Finally, the Steiner distance is closely related to the consensus error,
-and can be computed without explicitly constructing a multiple alignment.
-Let $D: \Sigma^* \times \Sigma^* \to \R$
-be the distance measure obtained under global pairwise alignment using the token distance $d$,
-so that $D$ operates on pairs of sequences.
-The Steiner distance is given by
-\begin{equation}
-\mathrm{SD}(\mcX, \bz) = \sum_{i=1}^K D(\bx_i, \bz).
-\end{equation}
-The optimal consensus error, $\min_\bz\mathrm{CE}(M,\bz)$,
-is equivalent to the optimal Steiner distance, $\min_{\bz}\mathrm{SD}(\mcX, \bz)$
-\citep{gusfield1997}.
-Additionally, the optimal Steiner sequence, $\arg\min_{\bz}\mathrm{SD}(\mcX, \bz)$,
-is equivalent to the optimal consensus sequence, $\arg\min_\bz\mathrm{CE}(M,\bz)$,
-up to spaces.
-(Double check this last part carefully, maybe cut out consensus error definition.)
 
-We utilize algorithms that optimize both the SP score and the Steiner distance.
+We utilize algorithms that optimize either the SP score and the Steiner distance
+in order to perform multiple alignment.
 
 \section{Methods}
 As optimizing both the SP score and Steiner distance are NP-hard,
