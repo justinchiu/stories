@@ -1,4 +1,4 @@
-\begin{thebibliography}{16}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -91,10 +91,30 @@ Daphne Ippolito, David Grangier, Chris Callison-Burch, and Douglas Eck.
 \newblock \doi{10.18653/v1/W19-2405}.
 \newblock URL \url{https://www.aclweb.org/anthology/W19-2405}.
 
+\bibitem[Ippolito et~al.(2020)Ippolito, Grangier, Eck, and
+  Callison-Burch]{ippolito2020better}
+Daphne Ippolito, David Grangier, Douglas Eck, and Chris Callison-Burch.
+\newblock Toward better storylines with sentence-level language models, 2020.
+
 \bibitem[Jin et~al.(2020)Jin, Barzilay, and Jaakkola]{wengong2020moleculemotif}
 Wengong Jin, Regina Barzilay, and Tommi Jaakkola.
 \newblock Hierarchical generation of molecular graphs using structural motifs,
   02 2020.
+
+\bibitem[Papalampidi et~al.(2020)Papalampidi, Keller, Frermann, and
+  Lapata]{papalampidi2020screenplay}
+Pinelopi Papalampidi, Frank Keller, Lea Frermann, and Mirella Lapata.
+\newblock Screenplay summarization using latent narrative structure.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, pages 1920--1933, Online, July 2020.
+  Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2020.acl-main.174}.
+\newblock URL \url{https://www.aclweb.org/anthology/2020.acl-main.174}.
+
+\bibitem[Paulus et~al.(2020)Paulus, Choi, Tarlow, Krause, and
+  Maddison]{paulus2020gradient}
+Max~B. Paulus, Dami Choi, Daniel Tarlow, Andreas Krause, and Chris~J. Maddison.
+\newblock Gradient estimation with stochastic softmax tricks, 2020.
 
 \bibitem[Petitjean et~al.(2011)Petitjean, Ketterlin, and
   Gan{\c{c}}arski]{petitjean2011dba}

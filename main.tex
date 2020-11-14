@@ -89,10 +89,21 @@ Although effective at improving the generative model,
 approaches that require specifying storyline representations
 are unlikely to scale to many use-cases and diverse domains.
 
+A closely related work, by \citet{papalampidi2020screenplay}, 
+formulated a latent variable model for narrative structure in screenplays.
+Their work uses a pre-trained model trained on manually labelled 
+narrative structure, and found it transferred well to their new setting.
+They fine-tune the pretrained model on their dataset as part of a 
+summarization model, which creates a short summary given a single source screenplay.
+Our approach is more general as it does not assume a model with knowledge of 
+narrative structure, just semantic similarity.
+Additionally, we generalize to the case of multiple sources in 
+order to extract robust motifs.
+
 Another line of work seeks to increase the controllability of black-box
 generative models without adding structure.
-One approach is to train models for story infilling in
-order to propose edits within a story \citep{ippolito2019infill},
+One approach is to train models for story infilling,
+which propose sentences to insert in the middle of a story \citep{ippolito2019infill},
 and another is to learn post-hoc controllability \citep{uber2019plug}.
 Both of these approaches suffer from a lack of interpretability,
 which complicates interaction with users.
@@ -445,9 +456,9 @@ two different configurations:
 either the mean sequence obtained from the progressive alignment or the IA algorithm.
 
 \section{Results}
-We find that the MSA algorithms perform better on the objective they optimize,
+We find that each of the MSA algorithms perform better on the objective they optimize,
 as seen in Table~\ref{tbl:sp_steiner}.
-The progressive alignment outperforms the other approaches by getting a lower SP score,
+The progressive alignment performs well on the SP score,
 while the IA and hill climbing (initialized with the IA mean sequence)
 approaches perform well on the Steiner distance.
 Initializing the hill climbing approach with the mean sequence obtained from 
@@ -504,7 +515,7 @@ where the total number of columns is much larger for progressive than HC(IA),
 and the column densities are lower for progressive as well.
 We find that the hill climbing algorithm aligns sentences
 that are not semantically similar,
-therefore we focus on analyzing the progressive alignments for evidence of
+and therefore focus on analyzing the progressive alignments for evidence of
 storylines.
 
 \begin{comment}
@@ -559,36 +570,34 @@ the stories themselves tend to have very simple structure.
 Due to their status as short stories, the traditional exposition, rising action,
 falling action, and conclusion segmentations do not fit very well.
 The short stories condense the structure and combine or completely leave out parts.
-Additionally, as we truncate stories at 25 sentences, we may miss the conclusion
-as well as the falling action.
+Additionally, as we truncate stories at 25 sentences, we may miss the latter
+parts of the story, such as the conclusion and the falling action.
 
 With the SBERT and data limitations in mind, we examine a particular set of 5 stories 
 with nontrivial alignments as a case study.
 The prompt and first few sentences of each story are given in Figure~\ref{fig:story-starts}.
-We find that the initial heuristics for finding sets of stories using the bigram BoS representations,
-and subsequently the pairwise alignment distances is effective at finding similar stories.
+We find that the heuristics for finding similar sets of stories are effective.
 As the stories in our case study cluster are all about outer space, we refer to them as
 the space story cluster.
 The multiple alignment for the cluster, in Figure~\ref{fig:msa},
-although sparse, shows some evidence of storylines.
+although sparse, shows evidence of a joint storyline.
 Indices 1-14 of the alignment appear to be the introduction of stories 1, 2, 3, and 5,
-with story 4 taking a less conventional structure and style.
-Due to their nature as short stories, much of the remainder of the stories fall under exposition:
-the stories unfortunately do not obey the rule ``show don't tell''
-so it is difficult to distinguish exposition from action.
+with story 4 exhibiting a less conventional structure and style.
+Due to their nature as short stories, much of the remainder of the stories fall under exposition.
 
 We present a good sub-alignment in Figure~\ref{fig:good-alignment},
 which involves indices 11 and 12 in Figure~\ref{fig:msa}.
 This particular alignment occurs early in the multiple alignment,
-and captures shared structure across four of the five stories
-and marks the end of the introduction section mentioned previously.
+and captures shared structure across four of the five stories.
+These sentences mark the end of the introduction for each of their respective stories.
 
 We also examine a poor sub-alignment in Figure~\ref{fig:bad-alignment},
-which involves indices 31-34 from the multiple alignment.
+which involves indices 31-34 from the multiple alignment,
+containing sentences from stories 4 and 5.
 The fragment from story 4 occurs towards the end that story's introduction,
 yet is aligned to sentences that occur after story 5's introduction.
-We hypothesize that story 4 is dissimilar to the other four stories,
-causing errors in the alignment.
+We hypothesize that story 4 is dissimilar to the other four stories
+in terms of structure and writing style, causing errors in the alignment.
 
 The full multiple alignment for this cluster, as well as other clusters,
 can be viewed by following the instructions at the following site:
@@ -752,17 +761,66 @@ serve as exposition in their respective stories.
 \end{figure}
 
 \section{Discussion}
-We present a comparison of objectives and algorithms for performing multiple alignment,
+We present a comparison of objectives and algorithms for finding
+multiple sequence alignments of stories,
 with the goal of inducing storylines.
-We find that progressive alignment results in the best alignment qualitatively.
-Analysis of the output of the progressive revealed some structure in stories,
-but the results were also obscured with noise from three possible sources:
-1) suboptimal choices of story sets, 2) suboptimal alignments from the algorithm, 
-and 3) behaviour of the sentence representations obtained from SBERT on out-of-domain data.
-For our next step, we will improve the accuracy and scalability of our alignment algorithm
-in order to apply it to even larger subsets of stories, addressing problems 1 and 2.
-We hypothesize that by increasing the number of stories aligned, we will be able to 
-improve the quality of the alignments by decreasing the probability of outlier stories with no similar stories in the same set.
+We find that progressive alignment results in the best alignments qualitatively.
+Analysis of the alignments obtained by the progressive algorithm
+discovered some structure in story clusters,
+supporting the hypothesis that storyline induction is possible without human annotation
+and with just a measure of semantic similarity.
+
+Our goal is to develop a generative story model that explicitly models storylines
+by extracting them from multiple stories.
+The positive results of our experiments indicate progress towards this goal.
+For next steps, we will further explore and improve the three main components of
+our multiple sequence alignment pipeline:
+1) the choice of story sets, 2) the similarity measure, and 3) the alignment algorithm itself.
+
+Finding good story sets is integral to the method,
+as it is the first step in the approach, but is computationally expensive.
+Obtaining the best story set of a given size
+is similar to subset sum optimization,
+which is a difficult combinatorial optimization problem.
+Our approach relied on greedy heuristics to approximate the best story sets.
+In order to improve our approach, we will improve those heuristics
+while still relying on a greedy approximation.
+As a quick recap, our approach to story selection had two main steps:
+The first step was to find nearest neighbours using the bigram bag of sentence representations,
+and the second step was to rerank those nearest neighbours using pairwise alignment distances.
+The first step was necessary to obtain candidates for reranking, as computing the pairwise
+alignment distances for all pairs of stories would be too expensive.
+In order to improve the procedure, we will learn a measure that is better correlated
+with the pairwise alignment distance than the current measure involving bigram BoS representations.
+A simple method for accomplishing this would be to train a regression model on top of the
+bigram BoS representations to predict the distance obtained from pairwise alignment.
+
+Improving the similarity measure requires designing a fine-tuning objective for story datasets
+in order to adapt the similiarity metric to the domain of interest.
+As SBERT, the basis of the similarity metric, was trained using human-labelled
+semantic matches for sentences,
+the same objective used to train SBERT cannot be used for story datasets without manual labeling.
+We instead propose a new generative model of multiple stories for fine-tuning,
+with the following generative process:
+First a multiple alignment is generated,
+a matrix whose entries are either a vector corresponding to a sentence embedding or a gap,
+then generate all sentences for each story 
+conditionally independently from other sentences given the multiple alignment.
+This places the modeling burden on the prior distribution over multiple alignments.
+A first approach to modeling the multiple alignment would be to model it
+autoregressively from left to right, while the likelihood of a sentence given a sentence 
+vector can be modeled with a sentence-level distribution \citep{ippolito2020better}.
+Inference would entail inferring the multiple alignment given the stories,
+which we could approximate with a point estimate from the MSA procedure used in this work,
+allowing us to train the model via variational bayes EM.
+
+For improving the alignment algorithm, we will explore continuous relaxations for
+multiple sequence alignment.
+\citet{alayrac2015align} found that their method, which relied on a continuous relaxation
+and rounding procedure, outperformed off-the-shelf biological multiple sequence alignment libraries.
+Additionally, a method that admits a continuous relaxation may be more easily integrated within
+a neural network \citep{paulus2020gradient}, allowing us to incorporate this procedure
+in improving the similarity measure as well.
 
 \newpage
 \bibliographystyle{plainnat}

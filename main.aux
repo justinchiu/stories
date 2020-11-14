@@ -23,21 +23,22 @@
 \citation{yao2018storyline,ippolito2019rarewords}
 \citation{fan2019structure}
 \citation{chandu2020narrative}
-\citation{ippolito2019infill}
-\citation{uber2019plug}
+\citation{papalampidi2020screenplay}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{1}{section.2}}
+\citation{ippolito2019infill}
+\citation{uber2019plug}
 \citation{wengong2020moleculemotif}
 \citation{alayrac2015align}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Background: Pairwise Sequence Alignment}{2}{section.3}}
 \newlabel{eqn:align}{{1}{2}{Background: Pairwise Sequence Alignment}{equation.3.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Problem Setup: Multiple Sequence Alignment}{2}{section.4}}
 \citation{fengdoolittle}
 \citation{fengdoolittle}
-\citation{petitjean2011dba}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Problem Setup: Multiple Sequence Alignment}{3}{section.4}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Methods}{3}{section.5}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Progressive Alignment}{3}{subsection.5.1}}
 \newlabel{eqn:dplus}{{5}{3}{Progressive Alignment}{equation.5.5}{}}
+\citation{petitjean2011dba}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{alg:progressive}{{1}{4}{Progressive Alignment \relax }{algorithm.1}{}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces  Progressive Alignment \relax }}{4}{algorithm.1}}
@@ -59,6 +60,9 @@
 \newlabel{fig:colcounts}{{1}{7}{The progressive algorithm outputs alignments that are much sparser and longer than the best-performing method that optimizes the Steiner distance, hill climbing (IA). This is shown by a large number of columns from progressive alignments containing only a single non-gap element, and few columns containing more than 3 non-gap elements. These column density counts were obtained across all multiple alignments from the initial 50 clusters. \relax }{figure.caption.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces   Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc  {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }}{7}{figure.caption.3}}
 \newlabel{fig:len-v-dist}{{2}{7}{Longer sentences tend to be farther from their nearest neighbours. $2^{16}$ random sentences were sampled from \textsc {WritingPrompts}, and the plot shows their length versus the average distance to their 10 nearest neighbours. Distances were averaged across all sentences of the same length. \relax }{figure.caption.3}{}}
+\citation{ippolito2020better}
+\citation{alayrac2015align}
+\citation{paulus2020gradient}
 \@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{8}{section.8}}
 \bibstyle{plainnat}
 \bibdata{bib}
@@ -73,16 +77,19 @@
 \bibcite{fengdoolittle}{{9}{1987}{{{Feng} and {Doolittle}}}{{}}}
 \bibcite{ippolito2019infill}{{10}{2019{}}{{Ippolito et~al.}}{{Ippolito, Grangier, Callison-Burch, and Eck}}}
 \bibcite{ippolito2019rarewords}{{11}{2019{}}{{Ippolito et~al.}}{{Ippolito, Grangier, Callison-Burch, and Eck}}}
-\bibcite{wengong2020moleculemotif}{{12}{2020}{{Jin et~al.}}{{Jin, Barzilay, and Jaakkola}}}
-\bibcite{petitjean2011dba}{{13}{2011}{{Petitjean et~al.}}{{Petitjean, Ketterlin, and Gan{\c {c}}arski}}}
-\bibcite{reimers2019sbert}{{14}{2019}{{Reimers and Gurevych}}{{}}}
-\bibcite{williams2017mnli}{{15}{2017}{{Williams et~al.}}{{Williams, Nangia, and Bowman}}}
-\bibcite{yao2018storyline}{{16}{2018}{{Yao et~al.}}{{Yao, Peng, Weischedel, Knight, Zhao, and Yan}}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces   The first few sentences from each of the 5 stories in our space story cluster analysis. The prompt is for each story is given in italics. All stories have a space-related theme. The first two sentences of story 5 have been filtered out, as they repeated the prompt. \relax }}{10}{figure.caption.4}}
-\newlabel{fig:story-starts}{{3}{10}{The first few sentences from each of the 5 stories in our space story cluster analysis. The prompt is for each story is given in italics. All stories have a space-related theme. The first two sentences of story 5 have been filtered out, as they repeated the prompt. \relax }{figure.caption.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces   The multiple story alignment of the space story cluster, obtained via progressive alignment. We refer to the story in the top-most row as story 1, down through the bottom-most row as story 5. Each colored square corresponds to a sentence from the corresponding story, while a dark square corresponds to a gap. Sentences within a row proceed in order of their appearance in the story; only gaps are inserted within each row. An identical dummy beginning-of-story sentence token was inserted at the start of each story, yielding the full column of matches at index 0. \relax }}{11}{figure.caption.5}}
-\newlabel{fig:msa}{{4}{11}{The multiple story alignment of the space story cluster, obtained via progressive alignment. We refer to the story in the top-most row as story 1, down through the bottom-most row as story 5. Each colored square corresponds to a sentence from the corresponding story, while a dark square corresponds to a gap. Sentences within a row proceed in order of their appearance in the story; only gaps are inserted within each row. An identical dummy beginning-of-story sentence token was inserted at the start of each story, yielding the full column of matches at index 0. \relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces   An example of a good alignment between 4 story segments from the multiple alignment. The first sentences from stories 1, 2, and 5 detail an event which sparked the following sentences. The next sentences from all four stories mention a form of exploration, investigation, or expansion. \relax }}{11}{figure.caption.6}}
-\newlabel{fig:good-alignment}{{5}{11}{An example of a good alignment between 4 story segments from the multiple alignment. The first sentences from stories 1, 2, and 5 detail an event which sparked the following sentences. The next sentences from all four stories mention a form of exploration, investigation, or expansion. \relax }{figure.caption.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces   An example of a poor alignment between two story segments from the multiple alignment. The sentences are weak semantic matches, although both segments serve as exposition in their respective stories. \relax }}{12}{figure.caption.7}}
-\newlabel{fig:bad-alignment}{{6}{12}{An example of a poor alignment between two story segments from the multiple alignment. The sentences are weak semantic matches, although both segments serve as exposition in their respective stories. \relax }{figure.caption.7}{}}
+\bibcite{ippolito2020better}{{12}{2020}{{Ippolito et~al.}}{{Ippolito, Grangier, Eck, and Callison-Burch}}}
+\bibcite{wengong2020moleculemotif}{{13}{2020}{{Jin et~al.}}{{Jin, Barzilay, and Jaakkola}}}
+\bibcite{papalampidi2020screenplay}{{14}{2020}{{Papalampidi et~al.}}{{Papalampidi, Keller, Frermann, and Lapata}}}
+\bibcite{paulus2020gradient}{{15}{2020}{{Paulus et~al.}}{{Paulus, Choi, Tarlow, Krause, and Maddison}}}
+\bibcite{petitjean2011dba}{{16}{2011}{{Petitjean et~al.}}{{Petitjean, Ketterlin, and Gan{\c {c}}arski}}}
+\bibcite{reimers2019sbert}{{17}{2019}{{Reimers and Gurevych}}{{}}}
+\bibcite{williams2017mnli}{{18}{2017}{{Williams et~al.}}{{Williams, Nangia, and Bowman}}}
+\bibcite{yao2018storyline}{{19}{2018}{{Yao et~al.}}{{Yao, Peng, Weischedel, Knight, Zhao, and Yan}}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces   The first few sentences from each of the 5 stories in our space story cluster analysis. The prompt is for each story is given in italics. All stories have a space-related theme. The first two sentences of story 5 have been filtered out, as they repeated the prompt. \relax }}{11}{figure.caption.4}}
+\newlabel{fig:story-starts}{{3}{11}{The first few sentences from each of the 5 stories in our space story cluster analysis. The prompt is for each story is given in italics. All stories have a space-related theme. The first two sentences of story 5 have been filtered out, as they repeated the prompt. \relax }{figure.caption.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces   The multiple story alignment of the space story cluster, obtained via progressive alignment. We refer to the story in the top-most row as story 1, down through the bottom-most row as story 5. Each colored square corresponds to a sentence from the corresponding story, while a dark square corresponds to a gap. Sentences within a row proceed in order of their appearance in the story; only gaps are inserted within each row. An identical dummy beginning-of-story sentence token was inserted at the start of each story, yielding the full column of matches at index 0. \relax }}{12}{figure.caption.5}}
+\newlabel{fig:msa}{{4}{12}{The multiple story alignment of the space story cluster, obtained via progressive alignment. We refer to the story in the top-most row as story 1, down through the bottom-most row as story 5. Each colored square corresponds to a sentence from the corresponding story, while a dark square corresponds to a gap. Sentences within a row proceed in order of their appearance in the story; only gaps are inserted within each row. An identical dummy beginning-of-story sentence token was inserted at the start of each story, yielding the full column of matches at index 0. \relax }{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces   An example of a good alignment between 4 story segments from the multiple alignment. The first sentences from stories 1, 2, and 5 detail an event which sparked the following sentences. The next sentences from all four stories mention a form of exploration, investigation, or expansion. \relax }}{12}{figure.caption.6}}
+\newlabel{fig:good-alignment}{{5}{12}{An example of a good alignment between 4 story segments from the multiple alignment. The first sentences from stories 1, 2, and 5 detail an event which sparked the following sentences. The next sentences from all four stories mention a form of exploration, investigation, or expansion. \relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces   An example of a poor alignment between two story segments from the multiple alignment. The sentences are weak semantic matches, although both segments serve as exposition in their respective stories. \relax }}{13}{figure.caption.7}}
+\newlabel{fig:bad-alignment}{{6}{13}{An example of a poor alignment between two story segments from the multiple alignment. The sentences are weak semantic matches, although both segments serve as exposition in their respective stories. \relax }{figure.caption.7}{}}

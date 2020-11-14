@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex main"] 1605169368 "main.aux" "main.bbl" "main" 1605169525
+["bibtex main"] 1605320247 "main.aux" "main.bbl" "main" 1605320262
   "/usr/local/texlive/2018/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1480098435 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "bib.bib" 1605168140 19185 12c70c3e6f45c2a361226e246010b3e4 ""
-  "main.aux" 1605169501 11097 9865a911bb2f0f4b20d843855a90b19a ""
+  "bib.bib" 1605308765 21193 51d6b8cd69a94481630282d5edd15cae ""
+  "main.aux" 1605320262 11548 5f01159adb98ddf1b90bbd7bf3d7b4dd ""
   (generated)
-  "main.bbl"
   "main.blg"
-["pdflatex"] 1605169500 "main.tex" "main.pdf" "main" 1605169525
+  "main.bbl"
+["pdflatex"] 1605320262 "main.tex" "main.pdf" "main" 1605320262
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1480098698 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1480098698 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -238,13 +238,13 @@
   "img/msa3167.png" 1604299215 19725 f42de6a988bd9de054961b2155e6311a ""
   "img/prog125vhcia.png" 1603908496 59713 6dd01e30030032d83db6fc634c8f2473 ""
   "img/senlen-v-nn-dist.png" 1604208982 49265 190f741f0319cc6d67acea952ec6c144 ""
-  "main.aux" 1605169501 11097 9865a911bb2f0f4b20d843855a90b19a ""
-  "main.bbl" 1605169368 6366 2cf1e450eb098d87d6b739d826ca482f "bibtex main"
-  "main.out" 1605169501 645 41cbf4ce7cfceb5e648d404a717cb5a9 ""
-  "main.tex" 1605169525 38182 bbb5beb49c51cd06752eab805695c0e5 ""
+  "main.aux" 1605320262 11548 5f01159adb98ddf1b90bbd7bf3d7b4dd ""
+  "main.bbl" 1605320247 7414 686b66ccd3a3946b2204650fe61c259d "bibtex main"
+  "main.out" 1605320262 645 41cbf4ce7cfceb5e648d404a717cb5a9 ""
+  "main.tex" 1605320260 41772 c2aba8b3f5ff5b812f26fb4ab869c5b6 ""
   "mystyle.sty" 1603995710 2842 ca0cdd090996135030989580ca3e88b5 ""
   (generated)
+  "main.pdf"
   "main.log"
   "main.out"
   "main.aux"
-  "main.pdf"
