@@ -1005,6 +1005,10 @@ LaTeX Warning: No \author given.
 Package natbib Warning: Citation `rakshin2020plotmachines' on page 1 undefined 
 on input line 22.
 
+
+Package natbib Warning: Citation `rakshin2020plotmachines' on page 1 undefined 
+on input line 35.
+
 [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -1111,7 +1115,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 829.
 Here is how much of TeX's memory you used:
  23114 strings out of 492649
  465435 string characters out of 6129607
- 593545 words of memory out of 5000000
+ 594545 words of memory out of 5000000
  26444 multiletter control sequences out of 15000+600000
  20642 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1136,7 +1140,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2018/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2018/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (13 pages, 388927 bytes).
+Output written on main.pdf (13 pages, 388945 bytes).
 PDF statistics:
  339 PDF objects out of 1000 (max. 8388607)
  278 compressed objects within 3 object streams
