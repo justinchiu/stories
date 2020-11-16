@@ -316,12 +316,14 @@ and distance measure $d$}
 \EndFunction
 
 \Function{Stack}{$M^1, \ldots, M^K$}
-\While{Non-gap elements of $\bz$ are not aligned in all $M^i_2$}
-\State{Record column indices of $M^i_2$ that have a non-gap element of $\bz$}
-\State{Insert $(-,-)$ columns to the left of the columns with non-gap elements from $\bz$
-    for each $M^i$}
-\EndWhile
-\Return{$\begin{pmatrix}M^{1}_1\\\hdots\\M^{K}_1\end{pmatrix}$}
+\ForAll{indices $j$ of $\bz$}
+    \ForAll{sequences $\bx_i$}
+        \State{Set $g_{ij} =$ \# of elements of $\bx_i$ aligned to $z_j$ or a gap between $z_j$ and $z_{j+1}$}
+    \EndFor
+    \State{Set $g_j= \max_i g_{ij}$}
+    \State{Set $\tilde{M}_i$ by inserting gaps into each $M^i$ until there are $g_j-1$ gaps after each $z_j$}
+\EndFor
+\Return{$\begin{pmatrix} \tilde{M}^1 \\ \vdots \\ \tilde{M}^K\end{pmatrix}$}
 \EndFunction
 
 \Function{Average}{$M, d$}
